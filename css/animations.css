@@ -1,0 +1,25 @@
+﻿/* Pending states are applied only after an observer exists. Content is visible by default. */
+.chapters .motion-pending { opacity: 0; }
+.chapters .type-layout { position: relative; display: block; }
+.chapters .type-measure { visibility: hidden; display: block; }
+.chapters .type-copy { position: absolute; inset: 0; display: block; }
+.chapters .photo-scene:not(#venue) .scene-image { animation: scene-breath 22s ease-in-out infinite alternate; animation-play-state: paused; }
+.chapters .photo-scene:not(#venue).is-in-view .scene-image { animation-play-state: running; }
+.chapters .venue-art .arch-line { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.chapters .venue-art.motion-pending .arch-line { stroke-dashoffset: 1; }
+.chapters .venue-art.is-drawn .arch-line { stroke-dashoffset:0; }
+.chapters .is-saved { animation: response-confirm .7s cubic-bezier(.22,1,.36,1) both; }
+.chapters .music-bar.is-playing .sound-waves i { animation: sound-wave 1.2s ease-in-out infinite alternate; }
+.chapters .music-bar.is-playing .sound-waves i:nth-child(2) { animation-delay: -.4s; }
+.chapters .music-bar.is-playing .sound-waves i:nth-child(3) { animation-delay: -.8s; }
+.chapters .music-bar.is-playing .sound-waves i:nth-child(4) { animation-delay: -.2s; }
+@keyframes scene-breath { from { transform: scale(1.015); } to { transform: scale(1.075); } }
+@keyframes arch-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes response-confirm { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes sound-wave { from { transform: scaleY(.4); } to { transform: scaleY(1.2); } }
+@media (prefers-reduced-motion: reduce) {
+  .chapters .motion-pending { opacity: 1; }
+  .chapters .scene-media { transform: none; }
+  .chapters .photo-scene:not(#venue) .scene-image { animation: none; }
+  .chapters .venue-art.motion-pending .arch-line { stroke-dashoffset: 0; }
+}

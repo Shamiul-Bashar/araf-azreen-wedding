@@ -1,0 +1,29 @@
+# Local backups
+backup/
+
+# Sensitive information
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+.next/
+.vercel/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+
+# Operating system files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Generated QA capture may contain network metadata
+qa/venue-map-result.txt

@@ -1,0 +1,31 @@
+
+# Local backup copies
+backup/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Build and deployment output
+dist/
+build/
+.next/
+.vercel/
+
+# Logs
+*.log
+
+# Windows temporary files
+Thumbs.db
+Desktop.ini
+
+# macOS temporary files
+.DS_Store
+
+# Editor temporary files
+*.tmp
+*.bak

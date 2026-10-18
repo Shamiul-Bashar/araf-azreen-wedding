@@ -1,0 +1,1112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#171513">
+
+  <title>ARAF & AZREEN | Wedding Invitation</title>
+
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=DM+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    /* ========================================
+       GLOBAL SETTINGS
+    ======================================== */
+
+    :root {
+      --black: #171310;
+      --dark-text: #211b17;
+      --gold: #b5944c;
+      --matte-red: #913e3b;
+      --cream: #f5f0e9;
+
+      --photo-position: center 38%;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #25221f;
+
+      display: flex;
+      justify-content: center;
+
+      font-family: "Cormorant Garamond", serif;
+      color: var(--black);
+    }
+
+    /* ========================================
+       MAIN INVITATION
+    ======================================== */
+
+    .invitation {
+      position: relative;
+      isolation: isolate;
+
+      width: min(100%, 450px);
+      min-height: 100svh;
+
+      overflow: hidden;
+
+      background: #d7d1ca;
+
+      box-shadow:
+        0 20px 70px rgba(0,0,0,0.18);
+    }
+
+    /* ========================================
+       BLACK AND WHITE BRIDE PHOTO
+    ======================================== */
+
+    .bride-photo {
+      position: absolute;
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      z-index: 0;
+
+      object-fit: cover;
+      object-position: var(--photo-position);
+
+      filter:
+        grayscale(100%)
+        contrast(1.07)
+        brightness(0.97);
+
+      animation:
+        photoReveal 1.8s ease-out both,
+        photoBreath 18s ease-in-out infinite alternate;
+
+      transform-origin: center center;
+    }
+
+    @keyframes photoReveal {
+      from {
+        opacity: 0.25;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes photoBreath {
+      from {
+        transform: scale(1.025);
+      }
+
+      to {
+        transform: scale(1.095);
+      }
+    }
+
+    /* ========================================
+       SOFT GRADIENT OVERLAY
+       NO BOX / NO BLUR
+    ======================================== */
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+
+      z-index: 1;
+
+      pointer-events: none;
+
+      background: linear-gradient(
+        180deg,
+        rgba(250,247,243,0.30) 0%,
+        rgba(250,247,243,0.19) 25%,
+        rgba(250,247,243,0.09) 45%,
+        rgba(250,247,243,0.20) 61%,
+        rgba(250,247,243,0.47) 78%,
+        rgba(250,247,243,0.59) 100%
+      );
+    }
+
+    /* ========================================
+       CONTENT LAYOUT
+    ======================================== */
+
+    .content {
+      position: relative;
+      z-index: 3;
+
+      width: 100%;
+      min-height: 100svh;
+
+      padding: 26px 24px 64px;
+
+      display: grid;
+
+      grid-template-rows:
+        auto
+        minmax(130px, 1fr)
+        auto;
+
+      text-align: center;
+    }
+
+    /* ========================================
+       TOP SECTION
+    ======================================== */
+
+    .top-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    /* BISMILLAH */
+
+    .bismillah {
+      font-family: "Amiri", serif;
+
+      font-size: clamp(19px, 5vw, 25px);
+      font-weight: 700;
+      line-height: 1.7;
+
+      color: #11100f;
+
+      white-space: nowrap;
+
+      text-shadow:
+        0 1px 2px rgba(255,255,255,0.9),
+        0 0 12px rgba(255,255,255,0.55);
+    }
+
+    /* ========================================
+       WEDDING INVITATION TITLE
+    ======================================== */
+
+    .title-wrap {
+      margin-top: 12px;
+
+      width: 100%;
+      min-height: 66px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .wedding-title {
+      font-family: "Great Vibes", cursive;
+
+      font-size: clamp(39px, 10vw, 54px);
+      font-weight: 400;
+      line-height: 1.3;
+
+      color: #15120f;
+
+      white-space: nowrap;
+
+      text-shadow:
+        0 1px 2px rgba(255,255,255,0.92),
+        0 0 17px rgba(255,255,255,0.55);
+    }
+
+    /* TYPING CURSOR */
+
+    .wedding-title.typing::after {
+      content: "";
+
+      display: inline-block;
+
+      height: 0.75em;
+      width: 1.5px;
+
+      margin-left: 4px;
+
+      background: var(--black);
+
+      vertical-align: middle;
+
+      animation: cursorBlink 0.7s step-end infinite;
+    }
+
+    @keyframes cursorBlink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* ========================================
+       CENTER COUPLE NAME
+    ======================================== */
+
+    .names-section {
+      width: 100%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      align-self: stretch;
+    }
+
+    .couple-names {
+      display: flex;
+
+      justify-content: center;
+      align-items: center;
+
+      gap: 9px;
+
+      white-space: nowrap;
+    }
+
+    .couple-name {
+      font-family: "Cormorant Garamond", serif;
+
+      font-size: clamp(27px, 8.2vw, 45px);
+      font-weight: 600;
+
+      letter-spacing: 0.045em;
+      line-height: 1.2;
+
+      color: #12100e;
+
+      text-shadow:
+        0 1px 2px rgba(255,255,255,0.95),
+        0 0 19px rgba(255,255,255,0.65);
+    }
+
+    /* AMPERSAND */
+
+    .ampersand {
+      font-family: "Great Vibes", cursive;
+
+      font-size: clamp(37px, 10vw, 56px);
+      font-weight: 400;
+
+      color: #11100f;
+
+      line-height: 1;
+
+      transform: translateY(1px);
+
+      text-shadow:
+        0 1px 2px rgba(255,255,255,0.95),
+        0 0 15px rgba(255,255,255,0.6);
+    }
+
+    /* ========================================
+       QURAN SECTION
+    ======================================== */
+
+    .verse-section {
+      width: 100%;
+      max-width: 370px;
+
+      margin: 0 auto;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ARABIC VERSE */
+
+    .arabic-verse {
+      width: 100%;
+
+      font-family: "Amiri", serif;
+
+      font-size: clamp(20px, 5.5vw, 25px);
+      font-weight: 700;
+
+      line-height: 1.7;
+
+      color: #171310;
+
+      margin-bottom: 15px;
+
+      text-shadow:
+        0 1px 2px rgba(255,255,255,0.98),
+        0 0 13px rgba(255,255,255,0.85);
+    }
+
+    /* ENGLISH TRANSLATION */
+
+    .translation {
+      width: 100%;
+      max-width: 340px;
+
+      font-family: "DM Sans", sans-serif;
+
+      font-size: clamp(11.5px, 3.15vw, 12.5px);
+      font-weight: 600;
+
+      line-height: 1.65;
+
+      color: #181512;
+
+      text-align: center;
+
+      text-shadow:
+        0 1px 2px rgba(255,255,255,1),
+        0 0 14px rgba(255,255,255,0.90);
+    }
+
+    /* SURAH REFERENCE */
+
+    .surah-reference {
+      margin-top: 16px;
+
+      font-family: "DM Sans", sans-serif;
+
+      font-size: 10.5px;
+      font-weight: 700;
+
+      letter-spacing: 0.16em;
+
+      color: var(--matte-red);
+
+      text-shadow:
+        0 1px 2px rgba(255,255,255,0.95),
+        0 0 9px rgba(255,255,255,0.6);
+    }
+
+    /* ========================================
+       BOTTOM GOLD ORNAMENT
+    ======================================== */
+
+    .bottom-ornament {
+      margin-top: 17px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      gap: 10px;
+
+      color: var(--gold);
+    }
+
+    .bottom-ornament::before,
+    .bottom-ornament::after {
+      content: "";
+
+      width: 42px;
+      height: 1px;
+
+      background: linear-gradient(
+        90deg,
+        transparent,
+        var(--gold)
+      );
+    }
+
+    .bottom-ornament::after {
+      transform: rotate(180deg);
+    }
+
+    .ornament-diamond {
+      width: 6px;
+      height: 6px;
+
+      background: var(--gold);
+
+      transform: rotate(45deg);
+    }
+
+    /* ========================================
+       REVEAL ANIMATIONS
+    ======================================== */
+
+    .playing .reveal {
+      opacity: 0;
+
+      animation: fadeUp 1s cubic-bezier(
+        0.19, 1, 0.22, 1
+      ) forwards;
+    }
+
+    .playing .bismillah {
+      animation-delay: 0.15s;
+    }
+
+    .playing .names-section {
+      animation-delay: 2.85s;
+    }
+
+    .playing .arabic-verse {
+      animation-delay: 3.30s;
+    }
+
+    .playing .translation {
+      animation-delay: 3.65s;
+    }
+
+    .playing .surah-reference {
+      animation-delay: 3.95s;
+    }
+
+    .playing .bottom-ornament {
+      animation-delay: 4.15s;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ========================================
+       REPLAY BUTTON
+    ======================================== */
+
+    .replay-button {
+      position: absolute;
+
+      z-index: 10;
+
+      bottom: 10px;
+      left: 12px;
+
+      padding: 7px 11px;
+
+      border: 1px solid rgba(32,26,20,0.20);
+      border-radius: 30px;
+
+      background: rgba(245,239,229,0.90);
+
+      color: #201a16;
+
+      font-family: "DM Sans", sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition:
+        background 0.25s ease,
+        transform 0.25s ease;
+    }
+
+    .replay-button:hover {
+      background: #f8f2e8;
+      transform: translateY(-2px);
+    }
+
+    .replay-button:focus-visible {
+      outline: 2px solid var(--matte-red);
+      outline-offset: 3px;
+    }
+
+    /* ========================================
+       PHOTO ERROR
+    ======================================== */
+
+    .photo-error {
+      position: fixed;
+
+      z-index: 50;
+
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+
+      max-width: 410px;
+
+      margin: auto;
+      padding: 13px 16px;
+
+      background: #211b18;
+      color: #ffffff;
+
+      border-radius: 10px;
+
+      font-family: "DM Sans", sans-serif;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .photo-error[hidden] {
+      display: none;
+    }
+
+    .photo-error code {
+      color: #e6bf73;
+    }
+
+    /* ========================================
+       SMALL MOBILE SCREEN
+    ======================================== */
+
+    @media (max-width: 370px) {
+
+      .content {
+        padding-inline: 14px;
+      }
+
+      .bismillah {
+        font-size: 19px;
+      }
+
+      .wedding-title {
+        font-size: 39px;
+      }
+
+      .couple-names {
+        gap: 6px;
+      }
+
+      .couple-name {
+        font-size: 27px;
+        letter-spacing: 0.025em;
+      }
+
+      .ampersand {
+        font-size: 37px;
+      }
+
+      .arabic-verse {
+        font-size: 20px;
+      }
+
+      .translation {
+        font-size: 11.5px;
+      }
+
+    }
+
+    /* ========================================
+       SHORTER MOBILE SCREEN
+    ======================================== */
+
+    @media (max-height: 730px) {
+
+      .content {
+        padding-top: 17px;
+        padding-bottom: 55px;
+        grid-template-rows:
+          auto
+          minmax(80px, 1fr)
+          auto;
+      }
+
+      .title-wrap {
+        min-height: 54px;
+        margin-top: 6px;
+      }
+
+      .wedding-title {
+        font-size: clamp(37px, 9.6vw, 48px);
+      }
+
+      .arabic-verse {
+        font-size: 20px;
+        line-height: 1.5;
+        margin-bottom: 10px;
+      }
+
+      .translation {
+        font-size: 11px;
+        line-height: 1.5;
+      }
+
+      .surah-reference {
+        margin-top: 10px;
+      }
+
+      .bottom-ornament {
+        margin-top: 10px;
+      }
+
+    }
+
+    /* ========================================
+       REDUCED MOTION ACCESSIBILITY
+    ======================================== */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .playing .reveal {
+        opacity: 1;
+      }
+
+      .wedding-title.typing::after {
+        display: none;
+      }
+
+    }
+
+  </style>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+
+<body>
+
+  <!-- MAIN INVITATION -->
+
+  <main class="wedding-page" id="top">
+  <section
+    id="scene"
+    class="invitation playing"
+  >
+
+    <!-- BRIDE PHOTO -->
+
+    <img
+      id="bridePhoto"
+      class="bride-photo"
+      src="./assets/bride.jpeg"
+      alt=""
+    >
+
+    <!-- SOFT OVERLAY -->
+
+    <div class="photo-overlay"></div>
+
+    <!-- ALL TEXT DIRECTLY ON PHOTO -->
+
+    <div class="content">
+
+      <!-- TOP SECTION -->
+
+      <header class="top-section">
+
+        <h1
+          class="bismillah reveal"
+          lang="ar"
+          dir="rtl"
+        >
+          بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+        </h1>
+
+        <div class="title-wrap">
+
+          <h2
+            id="typewriter"
+            class="wedding-title"
+          >
+            Wedding Invitation
+          </h2>
+
+        </div>
+
+      </header>
+
+      <!-- COUPLE NAMES -->
+
+      <section
+        class="names-section reveal"
+        aria-label="Couple names"
+      >
+
+        <div class="couple-names">
+
+          <span class="couple-name">
+            ARAF
+          </span>
+
+          <span class="ampersand">
+            &amp;
+          </span>
+
+          <span class="couple-name">
+            AZREEN
+          </span>
+
+        </div>
+
+      </section>
+
+      <!-- QURANIC VERSE -->
+
+      <section class="verse-section">
+
+        <p
+          class="arabic-verse reveal"
+          lang="ar"
+          dir="rtl"
+        >
+          وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ
+          مِنْ أَنْفُسِكُمْ أَزْوَاجًا
+          لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ
+          بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً ۚ
+          إِنَّ فِي ذَٰلِكَ لَآيَاتٍ
+          لِقَوْمٍ يَتَفَكَّرُونَ
+        </p>
+
+        <p class="translation reveal">
+
+          And of His signs is that He created
+          for you from yourselves mates
+          that you may find tranquility in them;
+          and He placed between you
+          affection and mercy.
+
+          Indeed in that are signs for a
+          people who give thought.
+
+        </p>
+
+        <p class="surah-reference reveal">
+          SURAH AR-RUM · 30:21
+        </p>
+
+        <!-- GOLD ORNAMENT -->
+
+        <div
+          class="bottom-ornament reveal"
+          aria-hidden="true"
+        >
+          <span class="ornament-diamond"></span>
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- REPLAY ANIMATION -->
+
+    <button
+      id="replayButton"
+      class="replay-button"
+      type="button"
+    >
+      ↻ Replay Motion
+    </button>
+
+  </section>
+    <div class="chapters">
+      <div class="reading-progress" aria-hidden="true"><span id="reading-progress"></span></div>
+      <nav class="chapter-nav" aria-label="Invitation chapters">
+        <span class="nav-signature" aria-hidden="true">An invitation, with love</span>
+        <div><a href="#story">Our story</a><a href="#events">Celebrations</a><a href="#rsvp">RSVP <span aria-hidden="true">↗</span></a></div>
+      </nav>
+
+      <section class="chapter story-scene photo-scene" id="story" aria-labelledby="story-heading" data-photo="story">
+        <div class="scene-copy">
+          <h2 id="story-heading" data-reveal="mask" data-delay="100">Our Story</h2>
+          <p class="lead" data-reveal data-delay="180">Two hearts.<br>One beautiful journey.</p>
+          <p id="story-copy" class="body-copy" data-reveal data-delay="260">With grateful hearts, we begin a new chapter together—guided by faith, strengthened by kindness, and surrounded by the prayers and blessings of those we love.</p>
+          <figure class="story-verse">
+            <div class="fine-rule" data-reveal="line" data-delay="300" aria-hidden="true"></div>
+            <blockquote cite="https://quran.com/25/74">
+              <p class="verse-arabic" lang="ar" dir="rtl" data-reveal data-delay="340">رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ</p>
+              <p class="verse-translation" data-reveal data-delay="420">&ldquo;Our Lord, grant us from among our spouses and offspring comfort to our eyes.&rdquo;</p>
+            </blockquote>
+            <figcaption data-reveal data-delay="480"><a href="https://quran.com/25/74">&mdash; The Holy Qur'an, Surah Al-Furqan (25:74)</a></figcaption>
+          </figure>
+          <p class="script-note" data-reveal data-delay="580">With love, always</p>
+        </div>
+        <a class="scene-footnote" href="#date" aria-label="Continue to Save the Date"><span>Affection &amp; mercy</span><span aria-hidden="true">&darr;</span></a>
+      </section>
+
+      <section class="chapter date-scene photo-scene" id="date" aria-labelledby="date-heading" data-photo="saveDate">
+        <header class="date-intro">
+          <p class="eyebrow" data-reveal>A DATE TO REMEMBER</p>
+          <h2 id="date-heading" class="script-title" data-reveal="mask" data-delay="120">Save the Date</h2>
+          <p class="date-subtitle" data-reveal data-delay="250">A beautiful beginning, a lifetime of togetherness.</p>
+          <p class="date-invitation" data-reveal data-delay="380">With grateful hearts, we invite you to share in a celebration of love, blessings, and new beginnings.</p>
+        </header>
+        <div class="date-display">
+          <p class="date-day" id="date-day" data-reveal="mask" data-delay="150"></p>
+          <div class="date-caption"><p class="date-month" id="date-month" data-reveal data-delay="300"></p><p class="date-year" id="date-year" data-reveal data-delay="450"></p></div>
+        </div>
+        <div class="date-details">
+          <div class="fine-rule" data-reveal="line" data-delay="400" aria-hidden="true"></div>
+          <p id="date-state" class="lead" role="status" data-reveal></p>
+          <div id="countdown" class="countdown" aria-label="Countdown to the start of the wedding date" aria-describedby="date-target"></div>
+          <div class="date-notes" data-reveal data-delay="500"><p id="date-note" class="small-note"></p><p id="date-target">Counting to the start of the wedding date.</p></div>
+          <div id="wedding-calendar"></div>
+        </div>
+      </section>
+
+      <section class="chapter events-scene" id="events" aria-labelledby="events-heading">
+        <div class="celebrations-art" aria-hidden="true" data-reveal="image"></div>
+        <header class="section-heading">
+          <p class="eyebrow" data-reveal>THE WEDDING CELEBRATIONS</p>
+          <h2 id="events-heading" data-reveal="mask" data-delay="100">The<br><em>Celebrations</em></h2>
+          <p class="intro" data-reveal data-delay="220">Three cherished occasions.<br>One beautiful beginning.</p>
+          <p class="celebrations-welcome" data-reveal data-delay="340">We look forward to sharing these joyful moments with you.</p>
+        </header>
+        <div id="event-list"></div>
+      </section>
+
+      <section class="chapter gallery-scene" id="memories" aria-labelledby="gallery-heading">
+        <div class="memories-backdrop" aria-hidden="true" data-reveal="rise"></div>
+        <header class="gallery-heading"><h2 id="gallery-heading" data-reveal="rise">Moments &amp;<br><em>Memories</em></h2><p class="gallery-caption" data-reveal="rise" data-delay="80">A collection of moments we'll always cherish.</p></header>
+        <div class="memories-composition">
+          <div id="gallery-grid" class="gallery-grid"></div>
+          <figure class="memories-quote" data-reveal="rise" data-delay="180">
+            <div class="quote-rule" aria-hidden="true"></div>
+            <blockquote>&ldquo;And from it He made its spouse so he may find comfort in her.&rdquo;</blockquote>
+            <figcaption>Adapted from Surah Al-A'raf (7:189)</figcaption>
+          </figure>
+        </div>
+        <p id="gallery-empty" class="gallery-unavailable" hidden>Photographs are temporarily unavailable.</p>
+      </section>
+
+      <section class="chapter venue-scene photo-scene" id="venue" aria-labelledby="venue-heading" data-photo="venue">
+        <div class="venue-art" aria-hidden="true" data-delay="100">
+          <svg viewBox="0 0 240 340" fill="none"><path class="arch-line" d="M20 330V130C20 60 70 30 120 10C170 30 220 60 220 130V330M45 330V135C45 80 80 58 120 38C160 58 195 80 195 135V330" pathLength="1"/></svg>
+          <span class="venue-symbol">A <i>&amp;</i> A</span>
+        </div>
+        <div class="venue-copy">
+          <p class="eyebrow" data-reveal data-delay="0">THE CELEBRATION VENUE</p>
+          <h2 id="venue-heading" data-reveal="rise" data-delay="80">A Place to<br><em>Celebrate</em></h2>
+          <h3 id="venue-name" data-reveal data-delay="150">Kushtia Rifle Club</h3>
+          <p id="venue-reception" class="venue-reception" data-reveal data-delay="220">Reception &middot; Friday, 18 December 2026</p>
+          <p id="venue-time" class="venue-time" data-reveal data-delay="220">After Jumu'ah Prayer</p>
+          <div class="fine-rule" data-reveal="line" data-delay="180" aria-hidden="true"></div>
+          <p class="venue-description" data-reveal data-delay="220">Join us as we celebrate a beautiful new beginning, surrounded by family and friends.</p>
+          <p id="venue-location" class="venue-location" data-reveal data-delay="220">Kushtia, Bangladesh</p>
+          <address id="venue-address" hidden></address>
+          <a id="venue-directions" class="venue-directions" href="https://share.google/Tx2eDZIVjYS5RHv35" target="_blank" rel="noopener noreferrer" aria-label="Get directions to Kushtia Rifle Club (opens in a new tab)" data-reveal data-delay="280"><span>Get Directions</span><span class="venue-arrow" aria-hidden="true">&#8599;</span></a>
+        </div>
+      </section>
+
+      <section class="chapter rsvp-scene" id="rsvp" aria-labelledby="rsvp-heading">
+        <header class="response-heading"><p class="eyebrow" data-reveal>06 — Your presence</p><p class="script-note" data-reveal>An invitation to you</p><h2 id="rsvp-heading" data-reveal="mask">Be Our<br><em>Guest</em></h2><div class="fine-rule" data-reveal="line" aria-hidden="true"></div><p class="intro" data-reveal data-delay="160">We would be delighted<br>to celebrate with you.</p><p class="demo-note" data-reveal>Local preview · Responses are saved only in this browser and are not sent to the couple.</p></header>
+        <div class="response-form"><p id="rsvp-closed" class="closed-note" hidden>RSVP is closed. Thank you for being part of our celebration.</p><form id="rsvp-form" class="invitation-form"><fieldset id="rsvp-fields">
+          <div class="form-field" data-reveal><label for="guest-name"><span class="field-number">01</span> Your full name</label><input id="guest-name" name="name" autocomplete="name" required maxlength="100" placeholder="As you would like to be welcomed"></div>
+          <div class="form-field" data-reveal data-delay="100"><label for="attendance"><span class="field-number">02</span> Will you attend?</label><select id="attendance" name="attendance" required aria-controls="guest-count-field"><option value="">Please choose</option><option value="yes">Joyfully accepts</option><option value="no">Regretfully declines</option></select></div>
+          <div id="guest-count-field" class="guest-count-field" hidden><label for="guest-count">Number of guests, including you</label><input id="guest-count" name="guests" type="number" min="1" max="20" value="1" disabled></div>
+          <div class="form-field" data-reveal data-delay="180"><label for="rsvp-message"><span class="field-number">03</span> A little note <span>(optional)</span></label><textarea id="rsvp-message" name="message" maxlength="1000" rows="3" placeholder="Anything you would like us to know"></textarea></div>
+          <button class="action-button" type="submit" data-reveal><span>Save my demo response</span><span class="button-arrow" aria-hidden="true">↗</span></button>
+        </fieldset><p id="rsvp-status" class="form-status" role="status" tabindex="-1"></p></form></div>
+      </section>
+
+      <section class="chapter wishes-scene" id="wishes" aria-labelledby="wishes-heading">
+        <header class="wishes-heading">
+          <p class="eyebrow" data-reveal>FOR ARAF &amp; AZREEN</p>
+          <h2 id="wishes-heading" data-reveal="mask" data-delay="100">Words of<br><em>Love &amp; Blessings</em></h2>
+          <p class="wishes-subtitle" data-reveal data-delay="200">A few heartfelt words can become a beautiful memory.</p>
+          <p class="wishes-introduction" data-reveal data-delay="300">As we begin this beautiful chapter together, your prayers, blessings, and warm wishes mean more than words can express. Leave us a heartfelt message to cherish.</p>
+          <div class="fine-rule" data-reveal="line" data-delay="350" aria-hidden="true"></div>
+          <figure class="wishes-verse">
+            <blockquote data-reveal data-delay="400">&ldquo;And We created you in pairs.&rdquo;</blockquote>
+            <figcaption data-reveal data-delay="500"><cite>&mdash;  Surah Al-Furqan (25:74)</cite></figcaption>
+          </figure>
+        </header>
+        <div class="wishes-compose">
+          <form id="wish-form" class="invitation-form">
+            <div class="form-field" data-reveal data-delay="300">
+              <label for="wish-name">Your Name</label>
+              <input id="wish-name" name="name" autocomplete="name" maxlength="100" required placeholder="Enter your name">
+            </div>
+            <div class="form-field" data-reveal data-delay="450">
+              <label for="wish-message">Your Message</label>
+              <textarea id="wish-message" name="message" rows="5" maxlength="1500" required placeholder="Write your heartfelt wishes here..."></textarea>
+            </div>
+            <button class="action-button" type="submit" data-reveal data-delay="600"><span>Save Your Wish</span><span class="button-arrow" aria-hidden="true">&#8599;</span></button>
+            <p class="wishes-disclosure" data-reveal data-delay="600">Wishes are currently saved on this device only.</p>
+            <p id="wish-status" class="form-status" role="status" tabindex="-1"></p>
+          </form>
+        </div>
+        <div id="wish-list" class="wish-list" aria-label="Wishes saved in this browser"></div>
+      </section>
+
+      <section class="chapter closing-scene photo-scene" id="closing" aria-labelledby="closing-heading" data-photo="closing">
+        <div class="closing-copy"><p class="eyebrow" data-type>Forever Begins Here</p><div class="fine-rule" data-reveal="line" aria-hidden="true"></div><h2 id="closing-heading"><span data-reveal="mask">Thank You for</span><span data-reveal="mask" data-delay="160">Being Part of</span><em data-reveal="mask" data-delay="320">Our Story</em></h2><p class="closing-names" data-couple></p><p class="intro" data-reveal data-delay="400">With grateful hearts, we look forward to a lifetime of affection and mercy.</p><span class="closing-ornament" aria-hidden="true" data-reveal="line">— ◇ —</span><a href="#top" class="text-link" data-reveal data-delay="500">Back to the beginning <span aria-hidden="true">↑</span></a></div>
+      </section>
+      <div class="music-bar"><span class="sound-waves" aria-hidden="true"><i></i><i></i><i></i><i></i></span><button id="music-toggle" type="button" disabled aria-pressed="false">Music unavailable</button><span id="music-status" role="status">A soundtrack will be added soon.</span></div>
+      <dialog id="gallery-dialog" class="gallery-dialog" aria-label="Photo viewer"><button id="gallery-close" class="viewer-close" aria-label="Close photo viewer">✕</button><img id="gallery-full" alt=""><div class="viewer-toolbar"><button id="gallery-prev" aria-label="Previous photo">←</button><p id="gallery-caption" aria-live="polite"></p><button id="gallery-next" aria-label="Next photo">→</button></div></dialog>
+    </div>
+
+
+  </main>
+
+  <!-- IMAGE ERROR -->
+
+  <div
+    id="photoError"
+    class="photo-error"
+    role="alert"
+    hidden
+  >
+    Background photo not found.
+
+    <p>
+      Make sure your image exists at
+      <code>assets/bride.jpeg</code>.
+    </p>
+  </div>
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+    const scene = document.getElementById("scene");
+
+    const typewriter = document.getElementById("typewriter");
+
+    const replayButton = document.getElementById("replayButton");
+
+    const bridePhoto = document.getElementById("bridePhoto");
+
+    const photoError = document.getElementById("photoError");
+
+    const fullText = "Wedding Invitation";
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+    let typingTimer = null;
+    let typingDelayTimer = null;
+    let cursorTimer = null;
+
+    /* ====================================
+       TYPEWRITER EFFECT
+    ==================================== */
+
+    function startTyping() {
+
+      clearInterval(typingTimer);
+      clearTimeout(typingDelayTimer);
+      clearTimeout(cursorTimer);
+
+      typewriter.textContent = "";
+
+      typewriter.classList.add("typing");
+
+      let index = 0;
+
+      typingDelayTimer = setTimeout(() => {
+
+        typingTimer = setInterval(() => {
+
+          if (index < fullText.length) {
+
+            typewriter.textContent += fullText[index];
+
+            index++;
+
+          } else {
+
+            clearInterval(typingTimer);
+
+            cursorTimer = setTimeout(() => {
+
+              typewriter.classList.remove("typing");
+
+            }, 650);
+
+          }
+
+        }, 105);
+
+      }, 550);
+
+    }
+
+    /* ====================================
+       REPLAY ANIMATIONS
+    ==================================== */
+
+    function replayAnimations() {
+
+      clearInterval(typingTimer);
+      clearTimeout(typingDelayTimer);
+      clearTimeout(cursorTimer);
+
+      if (reduceMotion.matches) {
+        typewriter.textContent = fullText;
+        typewriter.classList.remove("typing");
+        scene.classList.remove("playing");
+        return;
+      }
+
+      scene.classList.remove("playing");
+
+      void scene.offsetWidth;
+
+      scene.classList.add("playing");
+
+      startTyping();
+
+    }
+
+    /* ====================================
+       PHOTO LOADING CHECK
+    ==================================== */
+
+    bridePhoto.addEventListener("error", () => {
+      photoError.hidden = false;
+    });
+
+    bridePhoto.addEventListener("load", () => {
+      photoError.hidden = true;
+    });
+
+    if (
+      bridePhoto.complete &&
+      bridePhoto.naturalWidth === 0
+    ) {
+      photoError.hidden = false;
+    }
+
+    /* ====================================
+       REPLAY BUTTON
+    ==================================== */
+
+    replayButton.addEventListener(
+      "click",
+      replayAnimations
+    );
+
+    /* ====================================
+       START ON PAGE LOAD
+    ==================================== */
+
+    replayAnimations();
+
+  </script>
+
+
+  <script src="js/wedding-config.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/rsvp.js"></script>
+  <script src="js/music.js"></script>
+  <script src="js/motion.js"></script>
+</body>
+</html>

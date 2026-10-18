@@ -1,0 +1,85 @@
+{
+  "motionSamples": [
+    {
+      "id": "story",
+      "active": 9,
+      "typing": false
+    },
+    {
+      "id": "date",
+      "active": 15,
+      "typing": false
+    },
+    {
+      "id": "events",
+      "active": 15,
+      "typing": false
+    },
+    {
+      "id": "memories",
+      "active": 5,
+      "typing": false
+    },
+    {
+      "id": "venue",
+      "active": 0,
+      "typing": false
+    },
+    {
+      "id": "rsvp",
+      "active": 9,
+      "typing": false
+    },
+    {
+      "id": "wishes",
+      "active": 9,
+      "typing": false
+    },
+    {
+      "id": "closing",
+      "active": 10,
+      "typing": true
+    }
+  ],
+  "sizes": [
+    {
+      "width": 320,
+      "client": 305,
+      "scroll": 305,
+      "hero": 305
+    },
+    {
+      "width": 360,
+      "client": 345,
+      "scroll": 345,
+      "hero": 345
+    },
+    {
+      "width": 390,
+      "client": 375,
+      "scroll": 375,
+      "hero": 375
+    },
+    {
+      "width": 430,
+      "client": 415,
+      "scroll": 415,
+      "hero": 415
+    },
+    {
+      "width": 768,
+      "client": 753,
+      "scroll": 753,
+      "hero": 450
+    },
+    {
+      "width": 1366,
+      "client": 1351,
+      "scroll": 1351,
+      "hero": 450
+    }
+  ],
+  "errors": [],
+  "failures": [],
+  "passed": true
+}
