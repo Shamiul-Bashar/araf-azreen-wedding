@@ -1,0 +1,30 @@
+name: Wedding website quality checks
+
+on:
+  push:
+    branches: [main, "feature/**"]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  static-quality:
+    name: Static & integration safety
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out invitation
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate JavaScript syntax
+        run: |
+          find js scripts -type f \( -name '*.js' -o -name '*.cjs' \) -print0 | xargs -0 -n1 node --check
+      - name: Run existing simulated integration tests
+        run: node scripts/check.cjs
+      - name: Run offline premium safety checks
+        run: node scripts/polish-check.cjs
