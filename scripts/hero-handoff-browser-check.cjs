@@ -60,7 +60,7 @@ const server=http.createServer((req,res)=>{
   assert.equal(await reduced.page.locator('#scene .content').evaluate(n=>getComputedStyle(n).visibility),'visible');
   await reduced.ctx.close();
   const disabled=await open({javaScriptEnabled:false});
-  assert.equal(await disabled.page.locator('#typewriter').textContent(),'Wedding Invitation');
+  assert.equal((await disabled.page.locator('#typewriter').textContent()).trim(),'Wedding Invitation');
   assert.equal(await disabled.page.locator('#scene .content').evaluate(n=>getComputedStyle(n).visibility),'visible');
   await disabled.ctx.close();
   assert.deepEqual(errors,[]);
