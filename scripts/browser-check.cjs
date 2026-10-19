@@ -58,7 +58,7 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
  await page.locator('#rsvp-form button').click();
  await page.waitForFunction(() => window.__rsvpPosts.length===2);
  const no = await page.evaluate(() => window.__rsvpPosts[1]);
- assert.equal(new URLSearchParams(no.body).get('entry.1872556883'),"Sorry,I won't be able to attend");
+ assert.equal(new URLSearchParams(no.body).get('entry.1872556883'),"Sorry, I won't be able to attend");
  await page.locator('#wish-name').fill('QA Guest');await page.locator('#wish-message').fill('Test-only wedding wish.');await page.locator('#wish-form button').click();
  assert.equal(await page.locator('.wish-entry blockquote').textContent(),'Test-only wedding wish.');
  await page.reload({waitUntil:'domcontentloaded'});await page.evaluate(()=>window.WeddingIntro?.finish());assert.equal(await page.locator('.wish-entry blockquote').textContent(),'Test-only wedding wish.');
