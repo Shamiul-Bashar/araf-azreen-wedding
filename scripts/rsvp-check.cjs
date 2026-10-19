@@ -61,7 +61,7 @@ const assert = require('node:assert/strict');
   assert.equal(yes.mode,'no-cors');assert.equal(yes.method,'POST');
   const yesData=new URLSearchParams(yes.body);
   assert.equal(yesData.get('entry.1556371433'),'QA Guest');
-  assert.equal(yesData.get('entry.1872556883'),'Yes,I"l be there');
+  assert.equal(yesData.get('entry.1872556883'),"Yes, I'll be there");
   assert.equal(yesData.get('entry.219074917'),'Wedding wishes');
   assert.equal(await page.evaluate(()=>localStorage.getItem('aa-wedding:rsvps')),null);
 
