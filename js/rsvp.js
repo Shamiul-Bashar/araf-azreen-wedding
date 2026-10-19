@@ -82,7 +82,7 @@
 
     submitting = true;
     updateRSVP();
-    status('rsvp-status', 'Sending your RSVP to Google Forms...', 'info');
+    status('rsvp-status', 'Sending your RSVP...', 'sending');
 
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 12000);
@@ -98,14 +98,20 @@
         body: payload.toString(),
         signal: controller.signal
       });
-      status('rsvp-status',
-        'Your RSVP was sent to Google Forms, but this page cannot verify delivery. If you need confirmation, please contact the couple.',
-        'info');
+      // Sending this request does not confirm that Google Forms recorded it.
+      status('rsvp-status', 'Thank you — your RSVP has been sent.', 'sent');
       form.reset();
     } catch {
-      status('rsvp-status',
-        'We could not confirm sending your RSVP. Your answers have been kept. Please try again or use the Google Form link below.',
-        'error');
+      status('rsvp-status', 'Could not send your RSVP. Please try again.', 'error');
+      // Show the external form link only when it is useful: a failed send.
+      if (googleForms.viewFormUrl) {
+        const fallback = document.createElement('a');
+        fallback.href = googleForms.viewFormUrl;
+        fallback.target = '_blank';
+        fallback.rel = 'noopener noreferrer';
+        fallback.textContent = 'Open the RSVP form ↗';
+        $('rsvp-status').append(' ', fallback);
+      }
     } finally {
       clearTimeout(timeout);
       submitting = false;
