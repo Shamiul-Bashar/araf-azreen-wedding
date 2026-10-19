@@ -580,3 +580,99 @@
  .chapters #closing .closing-names { font-size:30px; }
  .chapters #closing .intro { font-size:14px; }
 }
+
+/* ============================================
+   FINAL PREMIUM POLISH — Oct 2026
+   Deliberately scoped, reversible refinements.
+   Hero art direction, photographs and event layout are preserved.
+   ============================================ */
+.wedding-page .skip-invitation {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 10001;
+  display: inline-flex;
+  align-items: center;
+  max-width: min(92vw, 350px);
+  min-height: 46px;
+  padding: 12px 18px;
+  transform: translateY(-180%);
+  border: 2px solid #d6b98b;
+  border-radius: 3px;
+  color: #f7f1ea;
+  background: #171310;
+  font: 600 13px/1.5 'DM Sans', sans-serif;
+  text-decoration: none;
+  box-shadow: 0 8px 24px #17131044;
+  transition: transform .2s ease;
+}
+.wedding-page .skip-invitation:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid #f7f1ea;
+  outline-offset: 2px;
+}
+.chapters .chapter-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 11px;
+}
+.chapters .chapter-nav a:focus-visible,
+.chapters .text-link:focus-visible,
+.chapters .action-button:focus-visible,
+.wedding-page .replay-button:focus-visible {
+  outline: 2px solid #913e3b;
+  outline-offset: 4px;
+}
+.chapters .photo-scene .text-link:focus-visible,
+.chapters #closing .text-link:focus-visible {
+  outline-color: #e2c898;
+}
+.chapters .chapter-nav a:focus-visible { text-decoration: underline; text-underline-offset: 5px; }
+.chapters .form-status:empty { display: none; }
+.chapters #wishes .eyebrow { font-size: 11px; }
+.chapters #wishes .wishes-introduction { font-size: 14px; line-height: 1.85; max-width: 48ch; }
+.chapters #wishes .invitation-form label {
+  font: 600 14px/1.6 'DM Sans', sans-serif;
+  margin-bottom: 10px;
+}
+.chapters #wishes .invitation-form :is(input,textarea) {
+  min-height: 54px;
+  padding-block: 13px;
+  font-size: 16px;
+  line-height: 1.65;
+}
+.chapters #wishes .invitation-form textarea { min-height: 120px; }
+.chapters #wishes .invitation-form :is(input,textarea)::placeholder {
+  font-size: 15px;
+  color: #5d5248;
+}
+.chapters #wishes::after {
+  background: linear-gradient(90deg,rgba(245,240,233,.88),rgba(245,240,233,.72) 45%,rgba(245,240,233,.84));
+}
+.chapters #wishes .action-button {
+  min-height: 58px;
+  font: 600 14px/1.5 'DM Sans',sans-serif;
+}
+.chapters #rsvp .rsvp-invitation { font-size: 15px; line-height: 1.8; }
+.chapters #rsvp .action-button:disabled {
+  opacity: .78;
+  cursor: wait;
+}
+.chapters :is(input,select,textarea):disabled { cursor: not-allowed; }
+@media(max-width:767px) {
+  .chapters #wishes::after {
+    background: linear-gradient(180deg,rgba(245,240,233,.88),rgba(245,240,233,.82) 50%,rgba(245,240,233,.9));
+  }
+  .chapters #wishes .wishes-introduction { font-size: 14px; }
+  .chapters #wishes .invitation-form label { font-size: 14px; }
+  .chapters #wishes .form-field { margin-bottom: 26px; }
+  .chapters #wishes .action-button { margin-top: 24px; }
+  .chapters #rsvp .rsvp-invitation { font-size: 14px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior: auto; }
+  .wedding-page .skip-invitation { transition: none; }
+  .wedding-page .bride-photo { animation: none !important; }
+  .chapters .action-button, .chapters .text-link { transition: none; }
+}
