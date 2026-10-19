@@ -30,7 +30,7 @@ window.weddingConfig = {
       },
       answers: {
         yes: "Yes, I'll be there",
-        no: "Sorry,I won't be able to attend"
+        no: "Sorry, I won't be able to attend"
       }
     }
   },
