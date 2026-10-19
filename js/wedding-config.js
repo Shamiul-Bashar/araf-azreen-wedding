@@ -14,7 +14,26 @@ window.weddingConfig = {
   // Confirmed public portfolio URL; the HTML anchor also provides a no-JavaScript fallback.
   developer: { portfolioUrl: 'https://shamiul-dev.vercel.app/' },
   music: { src: 'assets/music.mp3', autoplay: false, volume: 0.35 },
-  rsvp: { demoMode: true, closeAfterWedding: true, isOpen: null },
+  // Google Form is public; no private credentials belong in this client-side configuration.
+  // The yes answer comes verbatim from the owner-provided pre-filled link.
+  // Test both choices against the actual published form before launching.
+  rsvp: {
+    closeAfterWedding: true,
+    isOpen: null,
+    googleForms: {
+      viewFormUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSc2NxqLjU2q5PdWcEnQEPRKK4ksb37qMWgUmvFLp01ZJHlbdQ/viewform',
+      formResponseUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSc2NxqLjU2q5PdWcEnQEPRKK4ksb37qMWgUmvFLp01ZJHlbdQ/formResponse',
+      fields: {
+        name: 'entry.1556371433',
+        attendance: 'entry.1872556883',
+        message: 'entry.219074917'
+      },
+      answers: {
+        yes: 'Yes,I"l be there',
+        no: "Sorry,I won't be able to attend"
+      }
+    }
+  },
   guestbook: { demoMode: true },
   // Asset inventory prevents requests for files that have not been supplied.
   // After adding files, run: python scripts/update-assets.py
