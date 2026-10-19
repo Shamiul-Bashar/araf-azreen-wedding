@@ -28,3 +28,7 @@ jobs:
         run: node scripts/check.cjs
       - name: Run offline premium safety checks
         run: node scripts/polish-check.cjs
+      - name: Verify cinematic hero handoff in real Chrome
+        run: |
+          npm install --no-save --prefix "$RUNNER_TEMP/wedding-browser" playwright-core@1.56.1
+          NODE_PATH="$RUNNER_TEMP/wedding-browser/node_modules" CHROME_PATH="$(command -v google-chrome)" node scripts/hero-handoff-browser-check.cjs

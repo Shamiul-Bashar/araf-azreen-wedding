@@ -7,9 +7,12 @@ const root = path.join(__dirname,'..');
 const read = relative => fs.readFileSync(path.join(root,relative),'utf8');
 const html=read('index.html');
 const css=read('css/styles.css');
+const introCss=read('css/intro.css');
 const config=read('js/wedding-config.js');
 const rsvp=read('js/rsvp.js');
 const checks=[
+ ['Hero starts without a premature playing class', /id="scene"\s+class="invitation"/.test(html)],
+ ['Intro hides hero before handoff', introCss.includes('html.intro-active #scene .content')],
  ['Exactly one semantic page heading', (html.match(/<h1\b/g)||[]).length===1],
  ['Wedding invitation stays first heading', /<h1\s+id="typewriter"[\s\S]*?Wedding Invitation/.test(html)],
  ['Skip link is keyboard accessible', html.includes('class="skip-invitation" href="#story"') && css.includes('.skip-invitation:focus-visible')],
