@@ -1,21 +1,6 @@
 (() => {
   'use strict';
-  const { config, $, element, rsvpOpen } = window.Wedding;
-  // Wedding Wishes are still a browser-local preview. RSVP uses Google Forms below.
-  const store = {
-    read(key) {
-      const value = JSON.parse(localStorage.getItem('aa-wedding:' + key) || '[]');
-      if (!Array.isArray(value)) throw new Error('Invalid saved data');
-      return value;
-    },
-    append(key, value) {
-      const rows = this.read(key);
-      rows.push({ ...value, createdAt: new Date().toISOString() });
-      localStorage.setItem('aa-wedding:' + key, JSON.stringify(rows));
-      return rows;
-    }
-  };
-
+  const { config, $, rsvpOpen } = window.Wedding;
   function status(id, message, state = 'success') {
     const node = $(id);
     node.textContent = message;
@@ -119,37 +104,55 @@
     }
   });
 
-  function renderWishes(rows, animateNew = false) {
-    $('wish-list').replaceChildren();
-    const safe = rows.filter(row => row && typeof row.name === 'string' && typeof row.message === 'string');
-    if (!safe.length) return;
-    safe.slice().reverse().forEach((wish, index) => {
-      const entry = element('article', undefined, 'wish-entry');
-      entry.append(element('blockquote', wish.message), element('p', `— ${wish.name}`));
-      $('wish-list').append(entry);
-      if (animateNew && index === 0) window.WeddingMotion?.animate(entry, [
-        { opacity: 0, transform: 'translateY(20px)' }, { opacity: 1, transform: 'translateY(0)' }
-      ], { duration: 850 });
-    });
-  }
+  // Real Wishes delivery via Formspree. Keep HTML action/method as a no-JS fallback.
+  const wishForm = $('wish-form');
+  const wishButton = wishForm.querySelector('button[type="submit"]');
+  const wishButtonLabel = wishButton.querySelector('span');
+  let wishSending = false;
 
-  try { renderWishes(store.read('wishes')); }
-  catch { status('wish-status', 'Saved wishes could not be read. Browser storage may be unavailable.', 'error'); }
-  if (!config.guestbook.demoMode) {
-    $('wish-form').hidden = true;
-    status('wish-status', 'Guestbook service is not connected.', 'error');
-  }
-  $('wish-form').addEventListener('submit', event => {
+  wishForm.addEventListener('submit', async event => {
     event.preventDefault();
-    if (!config.guestbook.demoMode || !nonblank(event.target)) return;
-    const data = new FormData(event.target);
+    if (wishSending || !nonblank(wishForm)) return;
+
+    const data = new FormData(wishForm);
+    data.set('name', String(data.get('name') || '').trim());
+    data.set('message', String(data.get('message') || '').trim());
+
+    // Require actual meaningful content, not only whitespace.
+    if (!data.get('name') || !data.get('message')) {
+      status('wish-status', 'Please enter your name and a message.', 'error');
+      return;
+    }
+
+    wishSending = true;
+    wishButton.disabled = true;
+    wishButtonLabel.textContent = 'Sending Your Wish...';
+    status('wish-status', 'Sending your wishes...', 'sending');
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 12000);
     try {
-      const rows = store.append('wishes', { name: data.get('name').trim(), message: data.get('message').trim() });
-      renderWishes(rows, true);
-      status('wish-status', 'Your wish is saved in this browser only. Thank you for your kind words.');
-      event.target.reset();
+      const response = await fetch(wishForm.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' },
+        signal: controller.signal
+      });
+
+      // Unlike Google Forms, Formspree returns a readable success/error status.
+      // Successful acceptance does not guarantee the notification is already in Gmail.
+      if (!response.ok) throw new Error('Formspree did not accept the submission');
+
+      status('wish-status', 'Thank you — your heartfelt wishes have been submitted.', 'sent');
+      wishForm.reset();
     } catch {
-      status('wish-status', 'Your wish could not be saved. Please check browser storage settings.', 'error');
+      // Never clear the form on a failed request; the guest may safely retry.
+      status('wish-status', 'Your wish could not be sent. Please try again in a moment.', 'error');
+    } finally {
+      clearTimeout(timeout);
+      wishSending = false;
+      wishButton.disabled = false;
+      wishButtonLabel.textContent = 'Send Your Wishes';
     }
   });
 })();
