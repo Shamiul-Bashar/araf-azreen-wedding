@@ -161,10 +161,6 @@
 .chapters .wishes-heading { position: relative; }
 .chapters .wish-mark { font-size: clamp(140px, 22vw, 290px); line-height: 1; color: #b5944c50; display: block; margin-top: 30px; }
 .chapters .wishes-compose .demo-note { margin: 0 0 32px; }
-.chapters .wish-list { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; column-gap: 12%; }
-.chapters .wish-entry { border-top: 1px solid #baa98e; padding: 30px 0; }
-.chapters .wish-entry blockquote { font-size: clamp(25px, 2.8vw, 37px); line-height: 1.35; white-space: pre-wrap; overflow-wrap: anywhere; }
-.chapters .wish-entry p { font: 500 10px/1.8 'DM Sans', sans-serif; color: var(--muted); margin-top: 18px; }
 
 /* Final frame and quiet sound control. */
 .chapters .sound-waves { display: flex; gap: 3px; height: 20px; align-items: center; }
@@ -212,7 +208,6 @@
   .chapters .rsvp-scene, .chapters .wishes-scene { grid-template-columns: 1fr; gap: 38px; }
   .chapters .response-heading h2, .chapters .wishes-heading h2 { font-size: clamp(65px, 17vw, 100px); }
   .chapters .wish-mark { position: absolute; right: 0; bottom: -25px; font-size: 140px; margin: 0; }
-  .chapters .wish-list { grid-template-columns: 1fr; }
 }
 @media (max-width: 359px) {
   .chapters .chapter { padding-inline: 22px; }
@@ -303,12 +298,11 @@
 .chapters #wishes .invitation-form :is(input, textarea):focus { border-color: #913e3b; box-shadow: 0 1px #913e3b; }
 .chapters #wishes .action-button { background: #913e3b; border-color: #913e3b; margin-top: 34px; }
 .chapters #wishes .action-button:hover { background: #171310; border-color: #171310; }
-.chapters #wishes .wishes-disclosure { font: 400 10px/1.8 'DM Sans', sans-serif; color: #51483e; margin-top: 16px; }
-.chapters #wishes .form-status:not(:empty) { background: transparent; padding: 12px 0; border: 0; color: #4d3a1b; }
+.chapters #wishes .form-status { font:500 13px/1.7 'DM Sans',sans-serif; color:#53483e; }
+.chapters #wishes .form-status:not(:empty) { margin-top:14px; padding:0; border:0; background:transparent; }
+.chapters #wishes .form-status[data-state="sent"] { color:#42593e; }
+.chapters #wishes .action-button:disabled { cursor:wait; opacity:.77; }
 .chapters #wishes .form-status[data-state='error'] { color: #913e3b; }
-.chapters #wishes .wish-list:empty { display: none; }
-.chapters #wishes .wish-entry { border-top-color: #94816a; }
-.chapters #wishes .wish-entry p { color: #51483e; }
 @media (max-width: 767px) {
   .chapters #wishes { grid-template-columns: minmax(0, 1fr); gap: 44px; }
   .chapters #wishes::before { background-position: 54% center; }
