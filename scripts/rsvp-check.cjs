@@ -35,8 +35,8 @@ const assert = require('node:assert/strict');
     assert(await page.locator('#rsvp input').evaluateAll(ns=>ns.every(n=>parseFloat(getComputedStyle(n).fontSize)>=16)));
   }
   assert.equal(await page.locator('#guest-count-field').count(),0);
-  assert.equal(await page.locator('#rsvp-preview a').getAttribute('href'),
-    'https://docs.google.com/forms/d/e/1FAIpQLSc2NxqLjU2q5PdWcEnQEPRKK4ksb37qMWgUmvFLp01ZJHlbdQ/viewform');
+  assert.equal(await page.locator('#rsvp-preview').count(),0);
+  assert.equal(await page.locator('#rsvp-status').textContent(),'');
 
   await submit.click();
   assert.equal(await page.evaluate(()=>window.__rsvpPosts.length),0);
@@ -56,7 +56,7 @@ const assert = require('node:assert/strict');
   assert.equal(await page.evaluate(()=>document.activeElement.type),'submit');
   await page.keyboard.press('Enter');
   await page.waitForFunction(()=>window.__rsvpPosts.length===1);
-  await page.waitForFunction(()=>document.querySelector('#rsvp-status').textContent.includes('cannot verify delivery'));
+  await page.waitForFunction(()=>document.querySelector('#rsvp-status').textContent.includes('has been sent'));
   const yes=await page.evaluate(()=>window.__rsvpPosts[0]);
   assert.equal(yes.mode,'no-cors');assert.equal(yes.method,'POST');
   const yesData=new URLSearchParams(yes.body);
@@ -76,8 +76,10 @@ const assert = require('node:assert/strict');
   await page.locator('#guest-name').fill('QA Retry');
   await page.locator('#attendance').selectOption('yes');
   await submit.click();
-  await page.waitForFunction(()=>document.querySelector('#rsvp-status').textContent.includes('could not confirm sending'));
+  await page.waitForFunction(()=>document.querySelector('#rsvp-status').textContent.includes('Could not send'));
   assert.equal(await page.locator('#guest-name').inputValue(),'QA Retry');
+  assert.equal(await page.locator('#rsvp-status a').getAttribute('target'),'_blank');
+  assert.equal(await page.locator('#rsvp-status a').getAttribute('rel'),'noopener noreferrer');
   assert.equal(await page.evaluate(()=>window.__rsvpPosts.length),2);
 
   await page.evaluate(()=>{weddingConfig.rsvp.isOpen=false;document.dispatchEvent(new CustomEvent('wedding:clock'));});
