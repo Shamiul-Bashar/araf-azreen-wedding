@@ -1,139 +1,436 @@
-# ARAF & AZREEN — cinematic wedding invitation
+<h1 align="center">ARAF &amp; AZREEN</h1>
+<h3 align="center">A Cinematic Wedding Invitation</h3>
 
-A buildless HTML, CSS and vanilla JavaScript invitation. No installation, bundler or self-hosted backend required. RSVP uses Google Forms, and Wedding Wishes uses Formspree.
+<p align="center"><strong>A handcrafted digital wedding gift — where storytelling meets thoughtful web engineering.</strong></p>
 
-## Run
+<p align="center">
+  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML"><img alt="HTML5 Semantic" src="https://img.shields.io/badge/HTML5-Semantic-E34F26?logo=html5&amp;logoColor=white"></a>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS"><img alt="CSS3 Responsive" src="https://img.shields.io/badge/CSS3-Responsive-1572B6?logo=css3&amp;logoColor=white"></a>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img alt="Vanilla JavaScript" src="https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?logo=javascript&amp;logoColor=171310"></a>
+  <a href="https://vercel.com/"><img alt="Hosted on Vercel" src="https://img.shields.io/badge/Hosted_on-Vercel-171310?logo=vercel&amp;logoColor=white"></a>
+  <a href="https://github.com/Shamiul-Bashar/araf-azreen-wedding/actions/workflows/quality.yml"><img alt="Quality checks" src="https://github.com/Shamiul-Bashar/araf-azreen-wedding/actions/workflows/quality.yml/badge.svg?branch=main"></a>
+</p>
 
-Open `index.html` with VS Code **Live Server**. Alternatively, run `python -m http.server 5500` from this folder and visit `http://localhost:5500`.
+<p align="center">
+  <a href="https://araf-azreen-wedding.vercel.app/">Live Website</a> ·
+  <a href="#system-architecture">Architecture</a> ·
+  <a href="#getting-started">Getting Started</a> ·
+  <a href="#configuration">Configuration</a>
+</p>
 
-## What is included
+<p align="center"><img src="qa/hero-landscape-1366.png" width="78%" alt="Desktop preview of the cinematic wedding invitation"></p>
+<p align="center"><sub>16 December 2026 · Kushtia, Bangladesh</sub></p>
 
-Nine continuous sections: original hero, Our Story, Save the Date, Mehendi/Holud/Reception, Moments & Memories gallery, venue, RSVP, wedding wishes, and cinematic closing. The landscape hero fills the viewport width. The remaining sections use editorial desktop layouts and responsive mobile compositions. They include scroll reveals, reduced-motion handling, safe map links, downloadable calendar files, and a developer portfolio footer.
+---
 
-The introduction types the couple names over a charcoal background with subtle gold particles, then fades out at approximately 3.45 seconds. A separate 4.2-second watchdog releases the page if the intro module fails. Skip Intro, reduced motion and JavaScript-disabled fallbacks are supported. Hero animation starts after the introduction finishes.
+## Overview
 
-## Edit details
+**ARAF & AZREEN** is an elegant, photography-led wedding invitation experience. A cinematic opening, graceful typography, Quranic verses, animated storytelling and thoughtful guest interactions come together in one responsive website.
 
-Edit `js/wedding-config.js`:
+Built as a personal wedding gift, the project goes beyond a digital invitation card: guests can explore the story, wedding timeline, events, photographs, reception venue, RSVP and send private wishes to the couple.
 
-- `couple`: names used in the new sections. The original hero text remains deliberately untouched; change that manually in `index.html` only when intended.
-- `story`: edit the current story copy.
-- `wedding.date`: ISO date (`2026-12-16`). `time`: 24-hour `HH:mm` or null. Timezone defaults to `Asia/Dhaka`.
-- `events`: reorder this array to change the presentation order. Add confirmed date, time, venue, address, description and mapsUrl independently. No event inherits the wedding date.
-- `venue`: add name, address, city, time and an actual HTTP(S) mapsUrl. No directions link is shown without a valid URL.
-- `rsvp.isOpen`: null means automatic; true explicitly reopens; false closes. `closeAfterWedding` closes automatically after the wedding date ends in the configured timezone.
-- `rsvp.googleForms`: Google Forms public responder and POST URLs, the three `entry.*` field IDs, and exact attendance-choice text. These are public identifiers, not secrets. Check the published form if any question or choice is edited.
-- `wedding.endTime` or an event's `endTime`: add together with date and start time to enable an accurate .ics download. End must be later on the same day. Overnight calendar events are not supported in this version. Calendar dates are exported in UTC.
+**Engineering approach:** HTML5 + CSS3 + **vanilla JavaScript**, without React, Next.js, a bundler, a custom server or a database. The static site is served by **Vercel**; **Google Forms** handles attendance responses and **Formspree** handles Wedding Wishes.
 
-The site uses the visitor's actual clock. The supplied brief described December 18 as the current date, while this project's session date was October 18, 2026. No clock is hardcoded. Before the date it counts to the specified time, or midnight in Dhaka if time is unknown (explicitly described as a countdown to the date). On the date it shows a wedding-day state; afterward it says “Celebrated on 16 December 2026.” No negative countdown is displayed.
+> **Design principle:** Refined typography, authentic photography, restrained motion and an intuitive guest journey — without sacrificing accessibility or reliability.
 
-## Photographs
+## Table of Contents
 
-Place real files in `assets/`:
+- [Experience & Features](#experience--features)
+- [Gallery & Visual Preview](#gallery--visual-preview)
+- [Technology Stack](#technology-stack)
+- [System Architecture](#system-architecture)
+- [Guest Journey & Cinematic Lifecycle](#guest-journey--cinematic-lifecycle)
+- [RSVP & Wedding Wishes](#rsvp--wedding-wishes)
+- [Wedding Schedule](#wedding-schedule)
+- [Repository Structure](#repository-structure)
+- [Getting Started](#getting-started)
+- [Configuration](#configuration)
+- [Testing & Quality Assurance](#testing--quality-assurance)
+- [Deployment & Release Process](#deployment--release-process)
+- [Recovery, Security & Limitations](#recovery-security--limitations)
+- [Credits](#credits)
 
-- `story-bg.png` — Our Story
-- `save-date.png` — optional date background
-- `closing-bg.png` — closing photograph
-- `gallery-1.jpeg` through `gallery-4.jpeg` — gallery
-- `music.mp3` — your supplied/licensed soundtrack
+## Experience & Features
 
-The existing `bride.jpeg` remains the hero photograph. Missing optional photographs use warm editorial backgrounds; the gallery skips missing entries. No fake images or audio files are generated.
+| Experience | Details | Purpose |
+| :-- | :-- | :-- |
+| **Cinematic introduction** | Typed couple names, gold particles, soft transitions, Skip Intro | Memorable arrival |
+| **Wedding invitation hero** | Arabic Bismillah → typed title → couple names → verse and translation | A meaningful opening |
+| **Our Story** | Editorial storytelling, artwork and scripture | Introduce the couple |
+| **Save the Date** | Bangladesh-time countdown and event-aware status | Build anticipation |
+| **Celebrations** | Mehendi, Holud and Reception from a shared configuration | Organized event details |
+| **Moments & Memories** | Responsive photo collage, dialog viewer, keyboard/swipe controls | Explore memories |
+| **Venue & Directions** | Reception information and external maps link | Help guests navigate |
+| **RSVP** | Name, Yes/No attendance, optional note via Google Forms | Collect replies |
+| **Words of Love & Blessings** | Name and message via Formspree; owner notification setup | Send private wishes |
+| **Closing chapter** | Full-color photograph, final message and credits | Graceful conclusion |
 
-After adding or removing assets, run:
+**Experience refinements:** semantic page structure, skip navigation, focus indicators, animated progress, responsive photo treatments, reduced-motion handling, image fallbacks, Open Graph sharing metadata, and controlled intro-to-hero handoff.
 
-```powershell
+## Gallery & Visual Preview
+
+| Desktop | Mobile |
+| :--: | :--: |
+| <img src="qa/hero-landscape-1366.png" width="510" alt="Desktop hero screenshot"> | <img src="qa/mobile-hero.png" width="195" alt="Mobile hero screenshot"> |
+| <img src="qa/wishes-final-desktop.png" width="510" alt="Desktop wishes section screenshot"> | <img src="qa/wishes-final-mobile.png" width="195" alt="Mobile wishes section screenshot"> |
+
+<p align="center"><sub>Representative screenshots from repository QA captures. The deployed website is the source of truth for current behavior.</sub></p>
+
+## Technology Stack
+
+| Layer | Technology | Responsibility |
+| :-- | :-- | :-- |
+| **Markup** | HTML5 | Semantic sections, forms, navigation, dialog |
+| **Presentation** | CSS3 | Typography, layouts, photography, keyframe animations |
+| **Application logic** | Vanilla JavaScript | Timing, countdown, events, motion, gallery and submissions |
+| **Typography** | Amiri, Cormorant Garamond, Great Vibes, DM Sans | Arabic, editorial display and interface copy |
+| **RSVP integration** | Google Forms | Receives guest attendance responses |
+| **Wishes integration** | Formspree | Receives guest messages and supports email notifications |
+| **Source management** | Git + GitHub | Version history, feature branches, review and backups |
+| **Hosting** | Vercel | Production and Git-connected preview deployments |
+| **Quality control** | Node.js, GitHub Actions, Playwright Core + Chrome | Simulated integrations and browser regressions |
+
+**No frontend framework or self-hosted backend.** Node.js and Playwright are used for development/testing, not for the deployed application's runtime.
+
+## System Architecture
+
+### Component architecture
+
+```mermaid
+flowchart LR
+    Browser["Guest browser"]
+    Host["Vercel static hosting"]
+    UI["HTML / CSS / Vanilla JS"]
+    GF["Google Forms"]
+    Formspree["Formspree"]
+    Responses["Google Forms Responses"]
+    Submissions["Formspree Submissions"]
+    Gmail["Owner's Gmail"]
+
+    Browser -->|"Request site"| Host
+    Host -->|"Deliver code and assets"| Browser
+    Browser -->|"Run application"| UI
+    UI -->|"RSVP POST"| GF
+    GF --> Responses
+    UI -->|"Wedding Wishes POST"| Formspree
+    Formspree --> Submissions
+    Formspree -.->|"When notifications enabled"| Gmail
+```
+
+> **Boundary:** The website does not have a custom database. Guest responses belong to the configured third-party submission providers. No private access tokens or Gmail credentials are required in frontend code.
+
+### Module responsibilities
+
+| Module | Responsibility |
+| :-- | :-- |
+| `index.html` | Semantic structure, original hero, inline typewriter logic and form markup |
+| `css/styles.css` | Premium layout, responsiveness, photographic scenes and readable inputs |
+| `css/intro.css` + `js/intro.js` | Intro overlay, gold particles, watchdog, skip and handoff |
+| `css/animations.css` + `js/motion.js` | Scroll reveals, text animation, motion preferences and progress |
+| `js/wedding-config.js` | Couple, dates, events, venue, images and RSVP settings |
+| `js/main.js` | Event rendering, Bangladesh-time countdown, venue and optional calendars |
+| `js/gallery.js` | Lightbox, arrow navigation, swipe, dialog and focus restoration |
+| `js/rsvp.js` | Google Forms RSVP and Formspree Wishes request handling |
+| `js/music.js` | Optional audio implementation, currently inactive in the live UI |
+
+## Guest Journey & Cinematic Lifecycle
+
+### Visitor journey
+
+```mermaid
+flowchart TD
+    Open(["Open invitation"])
+    Intro["Cinematic introduction"]
+    Hero["Hero: Bismillah, title, couple and verse"]
+    Story["Our Story"]
+    Date["Save the Date"]
+    Events["Mehendi / Holud / Reception"]
+    Gallery["Moments & Memories"]
+    Venue["Venue & Directions"]
+    RSVP["RSVP"]
+    Wishes["Words of Love & Blessings"]
+    Closing(["Thank You / Closing"])
+
+    Open --> Intro --> Hero --> Story --> Date --> Events --> Gallery --> Venue --> RSVP --> Wishes --> Closing
+```
+
+### Intro-to-hero state flow
+
+```mermaid
+flowchart TD
+    Start(["Document loaded"])
+    Motion{"Reduced motion?"}
+    Overlay["Start cinematic intro; hide hero copy"]
+    Wait{"Intro finished or skipped?"}
+    Handoff["Remove overlay and emit intro-complete"]
+    Reveal["Start hero animation exactly once"]
+    One["Reveal Bismillah"]
+    Two["Type Wedding Invitation"]
+    Three["Reveal ARAF & AZREEN"]
+    Four["Reveal Arabic verse and translation"]
+    Static["Show content directly"]
+
+    Start --> Motion
+    Motion -->|"Yes"| Static
+    Motion -->|"No"| Overlay --> Wait
+    Wait -->|"Yes"| Handoff --> Reveal --> One --> Two --> Three --> Four
+```
+
+**Why this handoff matters:** The Hero does **not** start with `playing` on the initial HTML. Text remains hidden while `intro-active` is set, including the overlay's fade-out. The `wedding:intro-complete` event starts the intended sequence once, preventing a brief flash of completed Hero content followed by a restart.
+
+The normal intro ends after roughly **3.45 seconds**. An independent **4.2-second fallback watchdog** releases the invitation if the intro script fails. Skip Intro, reduced motion, and no-JavaScript reading are supported.
+
+## RSVP & Wedding Wishes
+
+### RSVP workflow — Google Forms
+
+```mermaid
+flowchart TD
+    A(["Open RSVP"])
+    B{"RSVP available?"}
+    Closed["Show unavailable / closed state"]
+    C["Enter name, attendance and optional note"]
+    D{"Inputs valid?"}
+    Fix["Correct the form"]
+    Send["Send encoded POST to Google Forms"]
+    Result{"Network request completed?"}
+    Sent["Show: RSVP has been sent"]
+    Error["Show error + Google Forms fallback link"]
+    Verify["Owner checks actual Google Forms Responses"]
+
+    A --> B
+    B -->|"No"| Closed
+    B -->|"Yes"| C --> D
+    D -->|"No"| Fix --> C
+    D -->|"Yes"| Send --> Result
+    Result -->|"Yes"| Sent -.-> Verify
+    Result -->|"No"| Error
+```
+
+**Submitted fields:** required guest name, required Yes/No attendance, optional note. Guest count is not collected. Availability depends on `rsvp.isOpen` / `rsvp.closeAfterWedding` in the config.
+
+**Delivery caveat:** A `fetch` request with `mode: 'no-cors'` yields **no readable Google Forms acceptance receipt**. The interface correctly says **sent**, not definitively recorded. The owner previously confirmed a real **Yes** RSVP in Google Forms; the **No** choice should also receive an end-to-end test.
+
+### Wedding Wishes workflow — Formspree
+
+```mermaid
+flowchart TD
+    A(["Write a wish"])
+    B{"Name and message valid?"}
+    Correct["Request valid inputs"]
+    Send["Submit FormData to Formspree"]
+    Response{"Successful HTTP response?"}
+    Success["Confirm submission; clear form"]
+    Failure["Keep message; allow retry"]
+    Stored["Stored in Formspree"]
+    Notification["Owner email when enabled"]
+
+    A --> B
+    B -->|"No"| Correct --> A
+    B -->|"Yes"| Send --> Response
+    Response -->|"Yes"| Success --> Stored
+    Response -->|"No or timeout"| Failure --> A
+    Stored -.-> Notification
+```
+
+The form uses `method="POST"` and its configured Formspree `action`, providing a native submission fallback if JavaScript is disabled. With JavaScript, `response.ok` is required for success; failures preserve the guest's writing and re-enable the button.
+
+A real submission has previously been confirmed in the owner's Gmail. **Provider acceptance does not imply immediate email delivery**; notification settings and Inbox/Spam checks remain important.
+
+## Wedding Schedule
+
+Configured event times use **Asia/Dhaka (UTC+06:00)**.
+
+| Celebration | Date | Time | Location |
+| :-- | :-- | :-- | :-- |
+| **Mehendi** | 15 December 2026 | 8:00 PM | Family Residence, Kalishankorpur, Kushtia |
+| **Holud** | 16 December 2026 | 1:00 AM | Family Residence, Kalishankorpur, Kushtia |
+| **Wedding Day** | 16 December 2026 | Exact ceremony time not provided | — |
+| **Reception** | 18 December 2026 | After Jumu'ah Prayer | Kushtia Rifle Club, Kushtia |
+
+The countdown uses the visitor's actual clock and the wedding timezone. When an exact wedding time has not been provided, the countdown refers to the **date**, not an invented ceremony time. Optional calendar downloads require valid start **and** end times.
+
+## Repository Structure
+
+```text
+araf-azreen-wedding/
+├── index.html
+├── css/
+│   ├── styles.css
+│   ├── animations.css
+│   └── intro.css
+├── js/
+│   ├── wedding-config.js
+│   ├── intro.js
+│   ├── main.js
+│   ├── motion.js
+│   ├── gallery.js
+│   ├── rsvp.js
+│   └── music.js
+├── assets/                       # Wedding photographs and scene art
+├── qa/                           # Representative QA images and results
+├── scripts/
+│   ├── check.cjs
+│   ├── polish-check.cjs
+│   ├── hero-handoff-browser-check.cjs
+│   ├── intro-check.cjs
+│   ├── browser-check.cjs
+│   ├── motion-check.cjs
+│   ├── rsvp-check.cjs
+│   ├── wishes-check.cjs
+│   ├── date-check.cjs
+│   ├── events-check.cjs
+│   ├── venue-check.cjs
+│   └── update-assets.py
+├── .github/workflows/quality.yml
+├── FINAL-VERIFICATION.md
+├── REDESIGN-NOTES.md
+└── README.md
+```
+
+## Getting Started
+
+### Prerequisites
+
+- A modern browser.
+- Git, if cloning the repository.
+- VS Code **Live Server** or Python 3 for a local HTTP server.
+- Node.js (optional, for QA commands).
+
+### Clone and run
+
+```bash
+git clone https://github.com/Shamiul-Bashar/araf-azreen-wedding.git
+cd araf-azreen-wedding
+
+# Open with VS Code / Live Server, or:
+python -m http.server 5500
+```
+
+Visit **http://localhost:5500/**. GitHub authentication is needed when cloning a private repository.
+
+No `npm install` or application build is required to run the website.
+
+### Execute offline checks
+
+```bash
+node scripts/check.cjs
+node scripts/polish-check.cjs
+```
+
+These run with simulated submission requests; **no real Google Form entry or Formspree email is sent**.
+
+## Configuration
+
+The editable source of truth is **[`js/wedding-config.js`](js/wedding-config.js)**.
+
+| Setting | Use | Guidance |
+| :-- | :-- | :-- |
+| `couple` | Couple names | Keep display names consistent with the manually authored Hero text |
+| `story` | Introductory story | Modify only approved wording |
+| `wedding.date` | Primary date | ISO `YYYY-MM-DD` |
+| `wedding.time` | Optional exact time | `null` until confirmed, otherwise 24-hour `HH:mm` |
+| `wedding.timezone` | Calendar/countdown math | `Asia/Dhaka` |
+| `events[]` | Individual celebrations | Each has its own date, time, venue, location and description |
+| `venue` | Reception/map content | Use a valid HTTPS map URL |
+| `photos` | Hero, story, gallery, closing | Existing paths under `assets/` |
+| `availableAssets` | Asset inventory | Refresh after image updates |
+| `rsvp.isOpen` | RSVP override | `null` automatic; `true` open; `false` closed |
+| `rsvp.googleForms` | RSVP provider fields | Maintain exact field IDs and option values |
+| `developer.portfolioUrl` | Attribution | Current portfolio URL |
+
+**To change photographs:** Add a real image to `assets/`, update the relevant path, then run:
+
+```bash
 python scripts/update-assets.py
 ```
 
-This refreshes `availableAssets` inside the configuration, preventing requests to missing files. Alternatively edit that array manually. If filenames differ, also update `photos` / `music.src`. Gallery entries may be strings or `{ src: 'assets/photo.jpeg', alt: 'Your meaningful description' }` objects. Hero, story, date and gallery retain their monochrome treatment; the closing photograph retains its color. The gallery supports native dialog focus containment, focus restoration, animated Escape closing, arrow keys, swipe and touch-sized buttons.
+The gallery ignores missing optional images. Photos should be reviewed on mobile and desktop before deployment. The original image treatment is monochrome in most chapters; the closing portrait retains color.
 
-The old music footer has been replaced by developer attribution and a real portfolio link. The retained music module exits without creating audio when its controls are absent.
+**To change colors or fonts:** Most scene styles are in `css/styles.css`; isolated Intro styles are in `css/intro.css`; original Hero styling and typing logic also live inside `index.html`. Avoid global style changes that alter the approved photographic composition.
 
-## RSVP — Google Forms integration
+**To change submissions:** RSVP's public Google Forms identifiers are in `js/wedding-config.js`. Formspree's action URL is in the Wedding Wishes form in `index.html`. Never add private credentials to browser code; test with real submissions after changing the provider configuration.
 
-The RSVP form now sends three public fields (**name**, **attendance**, and **optional note**) to the configured Google Form via an ordinary cross-origin POST request. Guest count has been removed from the website and is not submitted. The original invitation layout is preserved. A fallback link opens the Google Form directly.
+## Testing & Quality Assurance
 
-**Important:** Google Forms does not expose a CORS-readable delivery receipt for this approach. A fulfilled `no-cors` request can still correspond to a rejected form response (for example, when an attendance answer is misspelled or Google requires sign-in). The UI keeps this limitation unobtrusive: no permanent technical notice beneath the RSVP form; after sending, a brief line says the request **was sent**, not that Google has **received** it. On network failure, a direct Google Form fallback link appears. Do not display a guaranteed delivery-success message without a readable server receipt. If verified acknowledgements are required, replace the direct POST with a properly deployed Google Apps Script or other same-origin backend.
+| Verification | File/tool | What it covers |
+| :-- | :-- | :-- |
+| JS syntax | `node --check` | Static script parsing |
+| Simulated logic and integrations | `scripts/check.cjs` | Date boundaries, RSVP payload, Formspree payload, gallery |
+| Static design/integration safeguards | `scripts/polish-check.cjs` | Semantic headings, Hero initial state, URLs, assets, unique IDs |
+| **Real Chrome Hero handoff** | `scripts/hero-handoff-browser-check.cjs` | No premature text flash; intro exit, mobile/desktop, reduced motion, skip, no-JS |
+| GitHub CI | `.github/workflows/quality.yml` | Runs source checks and real Chrome handoff on PRs and branch pushes |
+| Optional visual/browser tests | `scripts/*-check.cjs` | Gallery, motion, events, date, RSVP and Wishes behavior |
 
-Before using this for real guests:
-1. Publish the Google Form with anonymous responder access, and keep its three original question IDs.
-2. Check **both exact attendance choice values** in `js/wedding-config.js`. The owner corrected the "yes" choice to `Yes, I'll be there`; the "no" choice is also corrected to `Sorry, I won't be able to attend` as confirmed by the form owner. Both choices still require a real end-to-end test.
-3. Manually send an actual RSVP from the website using a unique test name and optional note, then open Google Forms → Responses in the owning account. Verify that all three answers are present under the correct questions. Repeat for the other attendance choice and remove the two test responses.
-4. Test from a private/incognito browser and mobile browser without signing in to Google. If responses do not arrive, do not treat the request as successfully delivered.
-5. Run the regression scripts; these stub network requests and intentionally do **not** send data to the real Google Form.
+The automated browser job installs Playwright Core in the runner's temporary directory and uses Chrome. The production website itself has **no Playwright dependency**.
 
-**Wedding Wishes** now submits guest **name** and **message** directly to the supplied public Formspree endpoint: `https://formspree.io/f/mgaoqqbp`. The editable form action lives in `index.html` and provides a native HTML submit fallback without JavaScript; `js/rsvp.js` enhances it with an asynchronous `fetch` that requires an actual `response.ok` before confirming submission. Failed requests preserve the guest's message. There is no browser-local wish storage, public wishes gallery, or permanent technical disclaimer in this section.
+**Scope and limits:** Form requests in automated checks are mocked, not actually delivered. Browser testing does not replace physical Android/iOS checks, Safari/Firefox testing, Lighthouse measurements or an external provider delivery test. Historic images in `qa/` are test artifacts, not a guarantee that every viewport has been physically tested.
 
-To receive email notifications, verify the form-owner email address and enable/configure email notifications in the Formspree dashboard for the correct Gmail. The owner has verified that a real Wedding Wishes submission from the site resulted in a Gmail message. After any future endpoint/account change, submit **one uniquely named real test wish**, check Formspree Submissions, Gmail Inbox **and Spam**, then remove the test submission if possible. A successful Formspree response means the provider accepted the submission; it does not guarantee immediate Gmail delivery. Depending on the Formspree plan, monthly submission limits and anti-spam protections may apply. No API key or password belongs in frontend JavaScript. Review protection against automated spam before distributing the invitation.
+[View the automated workflow](https://github.com/Shamiul-Bashar/araf-azreen-wedding/actions/workflows/quality.yml)
 
-## Files and checks
+## Deployment & Release Process
 
-- `index.html`: preserved hero plus all section markup.
-- `css/styles.css`, `css/animations.css`: section styling and motion.
-- `css/intro.css`, `js/intro.js`: isolated cinematic introduction.
-- `js/wedding-config.js`: wedding data and asset inventory.
-- `js/main.js`: date/time logic, events, venue, calendar and photo setup.
-- `js/motion.js`: single site-wide motion controller, typed titles, viewport reveals and progress.
-- `scripts/browser-check.cjs`, `scripts/motion-check.cjs`: optional Chrome integration checks.
-- `js/gallery.js`, `js/music.js`, `js/rsvp.js`: independent interactions.
-- `scripts/update-assets.py`: optional asset inventory helper.
-- `scripts/check.cjs`: dependency-free Node checks.
+The source repository is connected to **Vercel**. Feature branches can create previews, while merges to `main` produce production deployments.
 
-Run `node scripts/check.cjs`. The checks cover Dhaka date boundaries, past/future states, RSVP overrides and mocked Google Forms payloads, mocked Formspree Wishes payloads, safe URLs, gallery navigation and calendar prerequisites. Interaction checks use a simulated DOM; they are not browser tests.
+```mermaid
+flowchart LR
+    Work["Feature branch"]
+    PR["Pull request"]
+    Check["GitHub Actions checks"]
+    Merge["Merge to main"]
+    Deploy["Vercel production deployment"]
+    Live(["Public invitation"])
+    Backup["Recovery snapshot"]
 
-The redesign was verified in local headless Chrome. See `REDESIGN-NOTES.md` for the audit, motion by section, test results and limitations. Screenshots are in `qa/`, and machine-readable layout/motion results are in `qa/browser-results.json`. The website has no new runtime dependencies; Playwright Core was installed only in the system temporary directory for QA.
-
-## Motion customization
-
-`js/motion.js` initializes once after the data and interaction scripts. Add `data-reveal` to a new element for an entrance, or choose `data-reveal="mask"`, `"line"`, `"image"`, `"left"` or `"right"`. `data-delay="160"` adds a stagger in milliseconds. `data-type` performs real sequential text insertion and reserves the full text's layout. Use typing only on simple text headings; do not apply it to text that another script updates, such as the countdown.
-
-Reveals run once as each element enters view. Scrolling backward leaves the final text visible. Photos breathe only while their scene is visible; subtle camera offset uses one scroll animation frame. Reduced-motion settings stop active animation and complete typing immediately. Content remains readable without IntersectionObserver or the animation module.
-
-The pre-redesign working snapshot is `backup/pre-redesign-20261018-154254.zip`; extract to a separate directory to restore or compare the complete previous working version. `backup/index.original.html` remains the untouched original hero source.
-
-## Optional browser regression checks
-
-Live Server is enough to run the site. Browser QA helpers additionally require Node, installed Chrome and Playwright Core outside the project. In PowerShell:
-
-```powershell
-npm install --prefix "$env:TEMP/araf-azreen-browser-qa" --no-save --no-audit --no-fund playwright-core
-python -m http.server 5500 --bind 127.0.0.1
+    Work --> PR --> Check
+    Check -->|"Pass"| Merge --> Deploy --> Live
+    Check -->|"Fail"| Work
+    Backup -.->|"Restore / revert when necessary"| Merge
 ```
 
-In a second terminal, launch an isolated headless Chrome instance:
+| Vercel setting | Value |
+| :-- | :-- |
+| Production URL | **[araf-azreen-wedding.vercel.app](https://araf-azreen-wedding.vercel.app/)** |
+| Framework preset | **Other** — static HTML/CSS/JS |
+| Root directory | Repository root |
+| Build command | None required |
+| Entry point | `index.html` |
+| Production Git branch | `main` |
+| Custom API/database | Not used |
 
-```powershell
-$qaProfile = Join-Path $env:TEMP 'araf-azreen-chrome-qa'
-Start-Process -FilePath 'C:/Program Files/Google/Chrome/Application/chrome.exe' -WindowStyle Hidden -ArgumentList @('--headless=new', '--remote-debugging-address=127.0.0.1', '--remote-debugging-port=9223', ('--user-data-dir="' + $qaProfile + '"'), '--no-first-run', '--no-default-browser-check', 'about:blank')
-node scripts/browser-check.cjs
-node scripts/motion-check.cjs
-node scripts/date-check.cjs
-node scripts/events-check.cjs
-node scripts/venue-check.cjs
-node scripts/wishes-check.cjs
-node scripts/rsvp-check.cjs
-node scripts/intro-check.cjs
-```
+**Workflow:** update a feature branch → open a PR → wait for CI → review → merge → confirm the Vercel production deployment is `READY`. Keep backup refs before important aesthetic or interaction changes.
 
-These use isolated browser contexts and mocked external form submissions, never real RSVP responses, Formspree emails, or production asset changes. Stop the test server and isolated Chrome instance afterward. Physical iOS/Android touch behavior and Safari/Firefox still need device testing.
+## Recovery, Security & Limitations
 
-## Current completion audit
+### Protected recovery points
 
-Confirmed event details and the individually polished sections are retained. Gallery photos 1 and 2 are now registered; missing photos 3 and 4 are skipped. The Venue uses overlapping reveals finishing in 630ms, with no continuous photo zoom. Reception details are read from the event configuration. The closing photo is supplied as `assets/closing-bg.png`. The developer footer links to https://shamiul-dev.vercel.app/. RSVP sends requests to Google Forms; the owner confirmed a real Yes response arrived, while the No case still needs checking. Wishes submits to Formspree and the owner confirmed a real Gmail notification arrived.
+| Version | Commit | Recovery reference |
+| :-- | :-- | :-- |
+| **Pre-polish website** | `4536883` | [Backup branch](https://github.com/Shamiul-Bashar/araf-azreen-wedding/tree/backup/production-2026-10-19-pre-polish) |
+| **Approved polished design before Hero handoff fix** | `1a3e970` | [Backup branch](https://github.com/Shamiul-Bashar/araf-azreen-wedding/tree/backup/approved-production-before-hero-handoff-fix) |
+| **Current live version** | `main` | [Production website](https://araf-azreen-wedding.vercel.app/) |
 
-## Premium polish (19 October 2026)
-- Semantic top-level invitation heading, accessible skip navigation and stronger keyboard focus.
-- Better form typography, contrast, mobile tap targets and live announcement semantics, preserving the original photography and animation concept.
-- Reduced-motion improvements and prioritized loading of the hero photograph.
-- Canonical URL, Open Graph and Twitter share-preview tags with a verified hosted image path, plus a small monogram favicon.
-- A repeatable offline verification script: `node scripts/polish-check.cjs`.
-- A GitHub Actions quality gate (`.github/workflows/quality.yml`) checks syntax and simulated integration behavior on PRs and pushes.
-- **No change** to the existing RSVP entry IDs, public Google Form URL or Formspree action URL.
+For an urgent rollback, inspect the previous READY deployment in Vercel. For a source-level restoration, create a recovery branch from the appropriate commit and merge a reviewed revert PR. **Do not force-push `main`** or overwrite backup branches.
 
-## Recovery snapshot
-The last pre-polish, verified production version was saved before any improvements on the immutable-at-creation snapshot branch
-`backup/production-2026-10-19-pre-polish`, commit
-`4536883080ceb4832f4f06002ac06ff4339f7739`.
-Browse or download it through:
-`https://github.com/Shamiul-Bashar/araf-azreen-wedding/tree/backup/production-2026-10-19-pre-polish`.
-This branch is intentionally not updated by automatic deployment. For an immediate hosting rollback, find the prior READY deployment `dpl_EUZrPPKygnHbBcTPV3UxKWga7vJC` in Vercel's Deployments UI and use its rollback/promote control. For a permanent code rollback, create a tested revert of the polish merge commit or restore files from the backup branch on a new branch, then merge through a pull request. Never force-push main.
+### Operational considerations
+
+- Google Forms and Formspree process the names/messages sent to those providers. Review their settings before sharing the site widely.
+- The Google Forms `no-cors` request has **no readable delivery receipt**; verify actual submissions in the Google Forms Responses panel.
+- Formspree's HTTP acceptance is not an immediate-Gmail guarantee. Check notification settings and provider submissions.
+- Do not commit private API keys, Gmail passwords, guest records or other secrets. The site has no local wish-message storage.
+- Optional gallery images 3 and 4 are skipped when unavailable.
+- The retained music module is optional and **not an active interface feature** in the currently approved design.
+- Feature availability and submission delivery may depend on connectivity, browser settings and third-party service quotas.
+
+> **Personal-use project:** The repository contains family event details and personal wedding photography. Do not redistribute imagery, messages or invitation details without permission. No open-source license has been declared.
+
+## Credits
+
+**Designed and developed by [MD SHAMIUL BASHAR SIAM](https://shamiul-dev.vercel.app/)**  
+Computer Science & Engineering Undergraduate · Khulna University of Engineering & Technology (KUET)
+
+Created as a personal wedding gift for **Araf & Azreen**.
+
+<p align="center"><em>Crafted with love, faith and attention to detail.</em></p>
+<p align="center"><strong><a href="https://araf-azreen-wedding.vercel.app/">Visit the Wedding Website</a></strong></p>
+
