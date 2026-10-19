@@ -51,7 +51,7 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
  const yes = await page.evaluate(() => window.__rsvpPosts[0]);
  assert.equal(yes.mode,'no-cors');
  assert.equal(new URLSearchParams(yes.body).get('entry.1556371433'),'QA Guest');
- assert.equal(new URLSearchParams(yes.body).get('entry.1872556883'),'Yes,I"l be there');
+ assert.equal(new URLSearchParams(yes.body).get('entry.1872556883'),"Yes, I'll be there");
  assert.equal(await page.evaluate(() => localStorage.getItem('aa-wedding:rsvps')),null);
  await page.locator('#guest-name').fill('QA Declined');
  await page.locator('#attendance').selectOption('no');
