@@ -145,7 +145,6 @@
 .chapters .invitation-form input::placeholder, .chapters .invitation-form textarea::placeholder { font-size: 12px; color: #776d61; opacity: 1; }
 .chapters .invitation-form :is(input, select, textarea):focus { outline: none; border-color: #947439; box-shadow: 0 1px #947439; background: #b5944c09; }
 .chapters .invitation-form :is(input, textarea):user-invalid { border-color: var(--red); box-shadow: 0 1px var(--red); }
-.chapters .guest-count-field { margin: 0 0 28px; padding-left: 24px; border-left: 1px solid var(--accent); }
 .chapters .action-button { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 12px; margin-top: 32px; padding: 18px 22px; min-height: 60px; background: var(--ink); color: var(--ivory); border: 1px solid var(--ink); cursor: pointer; font: 500 11px 'DM Sans', sans-serif; transition: background .3s, border-color .3s, transform .3s; }
 .chapters .action-button:hover { background: var(--red); border-color: var(--red); }
 .chapters .action-button:active { transform: translateY(2px); }
@@ -533,6 +532,8 @@
 .chapters #rsvp .button-arrow { transition:transform .2s; }
 .chapters #rsvp .action-button:hover .button-arrow { transform:translateX(4px); }
 .chapters #rsvp .rsvp-preview { font:400 12px/1.7 'DM Sans',sans-serif; color:#4a3d34; margin-top:14px; }
+.chapters #rsvp .rsvp-preview a { color:#713b34; font-weight:600; text-decoration:underline; text-underline-offset:3px; }
+.chapters #rsvp .rsvp-preview a:focus-visible { outline:2px solid #913e3b; outline-offset:3px; }
 .chapters #rsvp .form-status { font:500 13px/1.7 'DM Sans',sans-serif; color:#332821; }
 @media(prefers-reduced-motion:reduce) {
  .chapters #rsvp .is-saved { animation:none; }
