@@ -9,8 +9,9 @@ class Node {
 }
 const nodes=new Map();const get=id=>{if(!nodes.has(id))nodes.set(id,new Node());return nodes.get(id);};
 const values=new Map();let lastRequest=null;const document={getElementById:get,createElement:tag=>new Node(tag),querySelectorAll:()=>[],dispatchEvent(){},addEventListener(){},body:new Node(),activeElement:new Node()};
-const context={window:{},document,Intl,Date,URL,URLSearchParams,AbortController,Blob,console,CustomEvent:class{},setInterval(){},setTimeout(){},clearTimeout(){},fetch:(url,opts)=>{lastRequest={url,...opts};return Promise.resolve({type:'opaque'});},matchMedia:()=>({matches:true}),localStorage:{getItem:key=>values.get(key)||null,setItem:(key,value)=>values.set(key,value)},FormData:class{constructor(form){this.data=form.data;}get(key){return this.data[key];}}};
+const context={window:{},document,Intl,Date,URL,URLSearchParams,AbortController,Blob,console,CustomEvent:class{},setInterval(){},setTimeout(){},clearTimeout(){},fetch:(url,opts)=>{lastRequest={url,...opts};return Promise.resolve(String(url).includes('formspree.io')?{ok:true,status:200}:{type:'opaque'});},matchMedia:()=>({matches:true}),localStorage:{getItem:key=>values.get(key)||null,setItem:(key,value)=>values.set(key,value)},FormData:class{constructor(form){this.data={...form.data};}get(key){return this.data[key];}set(key,value){this.data[key]=value;}}};
 context.window=context;context.scrollTo=()=>{};context.scrollY=0;vm.createContext(context);
+get('wish-form').action='https://formspree.io/f/mgaoqqbp';
 for(const file of ['wedding-config','main','gallery','rsvp','music']) vm.runInContext(fs.readFileSync(`js/${file}.js`,'utf8'),context,{filename:file});
 const w=context.Wedding,c=context.weddingConfig;
 assert.equal(w.zonedDate('2026-12-16').toISOString(),'2026-12-15T18:00:00.000Z');
@@ -33,9 +34,15 @@ assert.equal(new URLSearchParams(lastRequest.body).get('entry.1556371433'),'Test
 assert.equal(new URLSearchParams(lastRequest.body).get('entry.1872556883'),c.rsvp.googleForms.answers.no);
 assert.equal(new URLSearchParams(lastRequest.body).get('entry.219074917'),'A test wish');
 assert.equal(values.has('aa-wedding:rsvps'),false);
-get('wish-form').listeners.submit({preventDefault(){},target:form});assert.equal(JSON.parse(values.get('aa-wedding:wishes'))[0].message,'A test wish');assert.equal(get('wish-list').children.length,1);
-context.localStorage.setItem=()=>{throw Error('blocked');};get('wish-form').listeners.submit({preventDefault(){},target:form});assert(get('wish-status').textContent.includes('could not be saved'));
-console.log('PASS: Dhaka date boundaries, countdown, RSVP request payload, local Wishes storage, blocked storage handling, safe links and missing assets.');
+get('wish-form').data={name:'  QA Guest  ',message:'  A test wish  '};
+get('wish-form').listeners.submit({preventDefault(){}});
+assert.equal(lastRequest.url,'https://formspree.io/f/mgaoqqbp');
+assert.equal(lastRequest.method,'POST');
+assert.equal(lastRequest.headers.Accept,'application/json');
+assert.equal(lastRequest.body.get('name'),'QA Guest');
+assert.equal(lastRequest.body.get('message'),'A test wish');
+assert.equal(values.has('aa-wedding:wishes'),false);
+console.log('PASS: Dhaka date boundaries, countdown, RSVP request payload, Formspree Wishes payload, safe links and missing assets.');
 // Exercise gallery controls with supplied-image fixtures in memory only.
 get('gallery-grid').replaceChildren();
 c.photos.gallery=[{src:'assets/bride.jpeg',alt:'Test image one'},{src:'assets/bride.jpeg',alt:'Test image two'}];
