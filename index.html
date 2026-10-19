@@ -7,6 +7,22 @@
         content="width=device-width, initial-scale=1.0">
 
   <meta name="theme-color" content="#171513">
+  <meta name="description" content="Celebrate the wedding of Araf &amp; Azreen in Kushtia, Bangladesh. Explore the celebrations, discover the venue, RSVP and share your heartfelt blessings.">
+  <meta name="color-scheme" content="light">
+  <link rel="canonical" href="https://araf-azreen-wedding.vercel.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ARAF &amp; AZREEN">
+  <meta property="og:title" content="ARAF &amp; AZREEN — Wedding Invitation">
+  <meta property="og:description" content="Together, with love and gratitude. Join us in celebrating Araf &amp; Azreen | December 2026 · Kushtia, Bangladesh.">
+  <meta property="og:url" content="https://araf-azreen-wedding.vercel.app/">
+  <meta property="og:image" content="https://araf-azreen-wedding.vercel.app/assets/bride.jpeg">
+  <meta property="og:image:alt" content="Wedding invitation photograph for Araf and Azreen">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ARAF &amp; AZREEN — Wedding Invitation">
+  <meta name="twitter:description" content="A heartfelt invitation to celebrate Araf &amp; Azreen in Kushtia, Bangladesh.">
+  <meta name="twitter:image" content="https://araf-azreen-wedding.vercel.app/assets/bride.jpeg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23171310'/%3E%3Ctext x='32' y='44' text-anchor='middle' fill='%23d6b98b' font-family='Georgia,serif' font-size='32'%3EA%3C/text%3E%3C/svg%3E">
+  <link rel="preload" as="image" href="./assets/bride.jpeg" fetchpriority="high">
 
   <title>ARAF & AZREEN | Wedding Invitation</title>
 
@@ -723,6 +739,7 @@
   <!-- MAIN INVITATION -->
 
   <main class="wedding-page" id="top">
+  <a class="skip-invitation" href="#story">Skip introduction and go to the invitation details</a>
   <section
     id="scene"
     class="invitation playing"
@@ -735,6 +752,8 @@
       class="bride-photo"
       src="./assets/bride.jpeg"
       alt=""
+      fetchpriority="high"
+      decoding="async"
     >
 
     <!-- SOFT OVERLAY -->
@@ -749,22 +768,22 @@
 
       <header class="top-section">
 
-        <h1
+        <p
           class="bismillah reveal"
           lang="ar"
           dir="rtl"
         >
           بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
-        </h1>
+        </p>
 
         <div class="title-wrap">
 
-          <h2
+          <h1
             id="typewriter"
             class="wedding-title"
           >
             Wedding Invitation
-          </h2>
+          </h1>
 
         </div>
 
@@ -954,10 +973,10 @@
         </header>
         <div class="response-form"><p id="rsvp-closed" class="closed-note" hidden>RSVP is closed. Thank you for being part of our celebration.</p><form id="rsvp-form" class="invitation-form"><fieldset id="rsvp-fields">
           <div class="form-field" data-reveal><label for="guest-name">Your Full Name</label><input id="guest-name" name="name" autocomplete="name" required maxlength="100" placeholder="Enter your full name"></div>
-          <div class="form-field" data-reveal data-delay="100"><label for="attendance">Will You Be Joining Us?</label><select id="attendance" name="attendance" required><option value="">Select your response</option><option value="yes">Yes, I'll be there</option><option value="no">Sorry, I won't be able to attend</option></select></div>
+          <div class="form-field" data-reveal data-delay="100"><label for="attendance">Will You Be Joining Us?</label><select id="attendance" name="attendance" required><option value="" disabled selected>Select your response</option><option value="yes">Yes, I'll be there</option><option value="no">Sorry, I won't be able to attend</option></select></div>
           <div class="form-field" data-reveal data-delay="180"><label for="rsvp-message">A Note for the Couple <span>(Optional)</span></label><textarea id="rsvp-message" name="message" maxlength="1000" rows="3" placeholder="Share a wish or a message..."></textarea></div>
           <button class="action-button" type="submit" data-reveal data-delay="220"><span>Submit RSVP</span><span class="button-arrow" aria-hidden="true">↗</span></button>
-        </fieldset><p id="rsvp-status" class="form-status" role="status" tabindex="-1"></p></form></div>
+        </fieldset><p id="rsvp-status" class="form-status" role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p></form></div>
       </section>
 
       <section class="chapter wishes-scene" id="wishes" aria-labelledby="wishes-heading">
@@ -983,7 +1002,7 @@
               <textarea id="wish-message" name="message" rows="5" maxlength="1500" required placeholder="Write your heartfelt wishes here..."></textarea>
             </div>
             <button class="action-button" type="submit" data-reveal data-delay="600"><span>Send Your Wishes</span><span class="button-arrow" aria-hidden="true">&#8599;</span></button>
-            <p id="wish-status" class="form-status" role="status" tabindex="-1"></p>
+            <p id="wish-status" class="form-status" role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
           </form>
         </div>
       </section>
