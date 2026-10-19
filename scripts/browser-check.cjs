@@ -59,11 +59,28 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
  await page.waitForFunction(() => window.__rsvpPosts.length===2);
  const no = await page.evaluate(() => window.__rsvpPosts[1]);
  assert.equal(new URLSearchParams(no.body).get('entry.1872556883'),"Sorry, I won't be able to attend");
- await page.locator('#wish-name').fill('QA Guest');await page.locator('#wish-message').fill('Test-only wedding wish.');await page.locator('#wish-form button').click();
- assert.equal(await page.locator('.wish-entry blockquote').textContent(),'Test-only wedding wish.');
- await page.reload({waitUntil:'domcontentloaded'});await page.evaluate(()=>window.WeddingIntro?.finish());assert.equal(await page.locator('.wish-entry blockquote').textContent(),'Test-only wedding wish.');
+ // Mock Formspree network requests; QA must not send real emails.
+ await page.evaluate(() => {
+   window.__wishPosts = [];
+   const previousFetch = window.fetch.bind(window);
+   window.fetch = (url, options) => {
+     if (String(url) !== 'https://formspree.io/f/mgaoqqbp') return previousFetch(url, options);
+     window.__wishPosts.push({name:options.body.get('name'),message:options.body.get('message'),accept:options.headers.Accept});
+     return Promise.resolve({ok:true,status:200});
+   };
+ });
+ await page.locator('#wish-name').fill('QA Guest');
+ await page.locator('#wish-message').fill('Test-only wedding wish.');
+ await page.locator('#wish-form button').click();
+ await page.waitForFunction(() => document.querySelector('#wish-status').textContent.includes('submitted'));
+ assert.equal(await page.evaluate(() => window.__wishPosts[0].message),'Test-only wedding wish.');
+ assert.equal(await page.locator('#wish-list').count(),0);
+ assert.equal(await page.evaluate(() => localStorage.getItem('aa-wedding:wishes')),null);
+ await page.reload({waitUntil:'domcontentloaded'});
+ await page.evaluate(()=>window.WeddingIntro?.finish());
+ assert.equal(await page.locator('#wish-status').textContent(),'');
  assert.equal(await page.locator('#music-toggle').count(),0);
- console.log('PASS: mocked Google Forms RSVP posts, separate local Wishes persistence, removed music footer.');
+ console.log('PASS: mocked Google Forms RSVP posts, mocked Formspree Wishes acceptance, no local-only storage, removed music footer.');
  const sizes=[];
  for(const width of [320,360,390,430,768,1366]){
    await page.setViewportSize({width,height:900});
