@@ -1,6 +1,6 @@
 # ARAF & AZREEN — cinematic wedding invitation
 
-A buildless HTML, CSS and vanilla JavaScript invitation. No installation, bundler or backend required.
+A buildless HTML, CSS and vanilla JavaScript invitation. No installation, bundler or self-hosted backend required. RSVP uses Google Forms, and Wedding Wishes uses Formspree.
 
 ## Run
 
@@ -62,7 +62,9 @@ Before using this for real guests:
 4. Test from a private/incognito browser and mobile browser without signing in to Google. If responses do not arrive, do not treat the request as successfully delivered.
 5. Run the regression scripts; these stub network requests and intentionally do **not** send data to the real Google Form.
 
-**Wedding Wishes** remains a **browser-local demo**; it does not reach the couple. Its storage key is `aa-wedding:wishes`, and guest text is rendered safely as plain text. Never put service credentials in frontend JavaScript. Review spam/response controls in Google Forms before distributing the invitation.
+**Wedding Wishes** now submits guest **name** and **message** directly to the supplied public Formspree endpoint: `https://formspree.io/f/mgaoqqbp`. The editable form action lives in `index.html` and provides a native HTML submit fallback without JavaScript; `js/rsvp.js` enhances it with an asynchronous `fetch` that requires an actual `response.ok` before confirming submission. Failed requests preserve the guest's message. There is no browser-local wish storage, public wishes gallery, or permanent technical disclaimer in this section.
+
+To receive email notifications, verify the form-owner email address and enable/configure email notifications in the Formspree dashboard for the correct Gmail. Submit **one uniquely named real test wish from the website**, check Formspree's Submissions dashboard, Gmail Inbox **and Spam**, then remove the test submission if possible. A successful Formspree response means the provider accepted the submission; it does not guarantee immediate Gmail delivery. Depending on the Formspree plan, monthly submission limits and anti-spam protections may apply. No API key or password belongs in frontend JavaScript. Review protection against automated spam before distributing the invitation.
 
 ## Files and checks
 
@@ -77,7 +79,7 @@ Before using this for real guests:
 - `scripts/update-assets.py`: optional asset inventory helper.
 - `scripts/check.cjs`: dependency-free Node checks.
 
-Run `node scripts/check.cjs`. The checks cover Dhaka date boundaries, past/future states, RSVP overrides and mocked Google Forms payloads, local Wishes storage and failure handling, safe URLs, gallery navigation and calendar prerequisites. Interaction checks use a simulated DOM; they are not browser tests.
+Run `node scripts/check.cjs`. The checks cover Dhaka date boundaries, past/future states, RSVP overrides and mocked Google Forms payloads, mocked Formspree Wishes payloads, safe URLs, gallery navigation and calendar prerequisites. Interaction checks use a simulated DOM; they are not browser tests.
 
 The redesign was verified in local headless Chrome. See `REDESIGN-NOTES.md` for the audit, motion by section, test results and limitations. Screenshots are in `qa/`, and machine-readable layout/motion results are in `qa/browser-results.json`. The website has no new runtime dependencies; Playwright Core was installed only in the system temporary directory for QA.
 
@@ -113,8 +115,8 @@ node scripts/rsvp-check.cjs
 node scripts/intro-check.cjs
 ```
 
-These use isolated browser contexts and in-memory optional-asset fixtures, never real RSVP submissions or production asset changes. Stop the test server and isolated Chrome instance afterward. Physical iOS/Android touch behavior and Safari/Firefox still need device testing.
+These use isolated browser contexts and mocked external form submissions, never real RSVP responses, Formspree emails, or production asset changes. Stop the test server and isolated Chrome instance afterward. Physical iOS/Android touch behavior and Safari/Firefox still need device testing.
 
 ## Current completion audit
 
-Confirmed event details and the individually polished sections are retained. Gallery photos 1 and 2 are now registered; missing photos 3 and 4 are skipped. The Venue uses overlapping reveals finishing in 630ms, with no continuous photo zoom. Reception details are read from the event configuration. The closing photo is supplied as `assets/closing-bg.png`. The developer footer links to https://shamiul-dev.vercel.app/. RSVP sends requests to Google Forms but requires a verified end-to-end submission test; Wishes remains a local-only demo.
+Confirmed event details and the individually polished sections are retained. Gallery photos 1 and 2 are now registered; missing photos 3 and 4 are skipped. The Venue uses overlapping reveals finishing in 630ms, with no continuous photo zoom. Reception details are read from the event configuration. The closing photo is supplied as `assets/closing-bg.png`. The developer footer links to https://shamiul-dev.vercel.app/. RSVP sends requests to Google Forms; the owner has confirmed a real Yes response arrived, but the No case still needs checking. Wishes now submits to Formspree and requires a real Formspree dashboard + Gmail notification test.
