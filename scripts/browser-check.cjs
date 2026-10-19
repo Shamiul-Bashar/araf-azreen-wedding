@@ -31,16 +31,56 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
  }
  assert(motionSamples.every(s=>s.id==='venue'||s.active>0||s.typing),JSON.stringify(motionSamples));
  console.log('PASS: real animation activity on section entry:',JSON.stringify(motionSamples));
- await page.locator('#guest-name').fill('QA Guest');await page.locator('#attendance').selectOption('yes');
- assert(await page.locator('#guest-count-field').isVisible());await page.locator('#guest-count').fill('3');
- await page.locator('#rsvp-form button').click();assert((await page.locator('#rsvp-status').textContent()).includes('not been sent'));
- assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('aa-wedding:rsvps'))[0].guests),3);
- await page.locator('#attendance').selectOption('no');assert(!(await page.locator('#guest-count-field').isVisible()));
- await page.locator('#wish-name').fill('QA Guest');await page.locator('#wish-message').fill('Test-only wedding wish.');await page.locator('#wish-form button').click();
- assert.equal(await page.locator('.wish-entry blockquote').textContent(),'Test-only wedding wish.');
- await page.reload({waitUntil:'domcontentloaded'});await page.evaluate(()=>window.WeddingIntro?.finish());assert.equal(await page.locator('.wish-entry blockquote').textContent(),'Test-only wedding wish.');
+ // Stub only the Google Forms endpoint; never send QA responses to the real wedding form.
+ await page.evaluate(() => {
+   window.__rsvpPosts = [];
+   const originalFetch = window.fetch.bind(window);
+   window.fetch = (url, options) => {
+     if (String(url).includes('/formResponse')) {
+       window.__rsvpPosts.push({url:String(url), body:options.body, mode:options.mode});
+       return Promise.resolve({type:'opaque'});
+     }
+     return originalFetch(url, options);
+   };
+ });
+ await page.locator('#guest-name').fill('QA Guest');
+ await page.locator('#attendance').selectOption('yes');
+ assert.equal(await page.locator('#guest-count-field').count(),0);
+ await page.locator('#rsvp-form button').click();
+ await page.waitForFunction(() => document.querySelector('#rsvp-status').textContent.includes('has been sent'));
+ const yes = await page.evaluate(() => window.__rsvpPosts[0]);
+ assert.equal(yes.mode,'no-cors');
+ assert.equal(new URLSearchParams(yes.body).get('entry.1556371433'),'QA Guest');
+ assert.equal(new URLSearchParams(yes.body).get('entry.1872556883'),"Yes, I'll be there");
+ assert.equal(await page.evaluate(() => localStorage.getItem('aa-wedding:rsvps')),null);
+ await page.locator('#guest-name').fill('QA Declined');
+ await page.locator('#attendance').selectOption('no');
+ await page.locator('#rsvp-form button').click();
+ await page.waitForFunction(() => window.__rsvpPosts.length===2);
+ const no = await page.evaluate(() => window.__rsvpPosts[1]);
+ assert.equal(new URLSearchParams(no.body).get('entry.1872556883'),"Sorry, I won't be able to attend");
+ // Mock Formspree network requests; QA must not send real emails.
+ await page.evaluate(() => {
+   window.__wishPosts = [];
+   const previousFetch = window.fetch.bind(window);
+   window.fetch = (url, options) => {
+     if (String(url) !== 'https://formspree.io/f/mgaoqqbp') return previousFetch(url, options);
+     window.__wishPosts.push({name:options.body.get('name'),message:options.body.get('message'),accept:options.headers.Accept});
+     return Promise.resolve({ok:true,status:200});
+   };
+ });
+ await page.locator('#wish-name').fill('QA Guest');
+ await page.locator('#wish-message').fill('Test-only wedding wish.');
+ await page.locator('#wish-form button').click();
+ await page.waitForFunction(() => document.querySelector('#wish-status').textContent.includes('submitted'));
+ assert.equal(await page.evaluate(() => window.__wishPosts[0].message),'Test-only wedding wish.');
+ assert.equal(await page.locator('#wish-list').count(),0);
+ assert.equal(await page.evaluate(() => localStorage.getItem('aa-wedding:wishes')),null);
+ await page.reload({waitUntil:'domcontentloaded'});
+ await page.evaluate(()=>window.WeddingIntro?.finish());
+ assert.equal(await page.locator('#wish-status').textContent(),'');
  assert.equal(await page.locator('#music-toggle').count(),0);
- console.log('PASS: RSVP attendance reveal, storage, guestbook reload persistence, removed music footer.');
+ console.log('PASS: mocked Google Forms RSVP posts, mocked Formspree Wishes acceptance, no local-only storage, removed music footer.');
  const sizes=[];
  for(const width of [320,360,390,430,768,1366]){
    await page.setViewportSize({width,height:900});

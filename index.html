@@ -952,13 +952,12 @@
           <p class="rsvp-subtitle" data-reveal data-delay="120">Your presence would make our celebration even more meaningful.</p>
           <p class="rsvp-invitation" data-reveal data-delay="160">As we begin this new chapter, we'd be honored to celebrate with you. Kindly let us know if you can join us.</p>
         </header>
-        <div class="response-form"><p id="rsvp-closed" class="closed-note" hidden>RSVP is closed. Thank you for being part of our celebration.</p><form id="rsvp-form" class="invitation-form" aria-describedby="rsvp-preview"><fieldset id="rsvp-fields">
+        <div class="response-form"><p id="rsvp-closed" class="closed-note" hidden>RSVP is closed. Thank you for being part of our celebration.</p><form id="rsvp-form" class="invitation-form"><fieldset id="rsvp-fields">
           <div class="form-field" data-reveal><label for="guest-name">Your Full Name</label><input id="guest-name" name="name" autocomplete="name" required maxlength="100" placeholder="Enter your full name"></div>
-          <div class="form-field" data-reveal data-delay="100"><label for="attendance">Will You Be Joining Us?</label><select id="attendance" name="attendance" required aria-controls="guest-count-field"><option value="">Select your response</option><option value="yes">Yes, I'll be there</option><option value="no">Sorry, I won't be able to attend</option></select></div>
-          <div id="guest-count-field" class="guest-count-field" hidden><label for="guest-count">Number of guests, including you</label><input id="guest-count" name="guests" type="number" min="1" max="20" value="1" disabled></div>
+          <div class="form-field" data-reveal data-delay="100"><label for="attendance">Will You Be Joining Us?</label><select id="attendance" name="attendance" required><option value="">Select your response</option><option value="yes">Yes, I'll be there</option><option value="no">Sorry, I won't be able to attend</option></select></div>
           <div class="form-field" data-reveal data-delay="180"><label for="rsvp-message">A Note for the Couple <span>(Optional)</span></label><textarea id="rsvp-message" name="message" maxlength="1000" rows="3" placeholder="Share a wish or a message..."></textarea></div>
-          <button class="action-button" type="submit" data-reveal data-delay="220"><span>Save RSVP on This Device</span><span class="button-arrow" aria-hidden="true">↗</span></button>
-        <p class="rsvp-preview" id="rsvp-preview">Preview mode &mdash; your response is saved on this device only.</p></fieldset><p id="rsvp-status" class="form-status" role="status" tabindex="-1"></p></form></div>
+          <button class="action-button" type="submit" data-reveal data-delay="220"><span>Submit RSVP</span><span class="button-arrow" aria-hidden="true">↗</span></button>
+        </fieldset><p id="rsvp-status" class="form-status" role="status" tabindex="-1"></p></form></div>
       </section>
 
       <section class="chapter wishes-scene" id="wishes" aria-labelledby="wishes-heading">
@@ -974,7 +973,7 @@
           </figure>
         </header>
         <div class="wishes-compose">
-          <form id="wish-form" class="invitation-form">
+          <form id="wish-form" class="invitation-form" action="https://formspree.io/f/mgaoqqbp" method="POST">
             <div class="form-field" data-reveal data-delay="300">
               <label for="wish-name">Your Name</label>
               <input id="wish-name" name="name" autocomplete="name" maxlength="100" required placeholder="Enter your name">
@@ -983,12 +982,10 @@
               <label for="wish-message">Your Message</label>
               <textarea id="wish-message" name="message" rows="5" maxlength="1500" required placeholder="Write your heartfelt wishes here..."></textarea>
             </div>
-            <button class="action-button" type="submit" data-reveal data-delay="600"><span>Save Your Wish</span><span class="button-arrow" aria-hidden="true">&#8599;</span></button>
-            <p class="wishes-disclosure" data-reveal data-delay="600">Wishes are currently saved on this device only.</p>
+            <button class="action-button" type="submit" data-reveal data-delay="600"><span>Send Your Wishes</span><span class="button-arrow" aria-hidden="true">&#8599;</span></button>
             <p id="wish-status" class="form-status" role="status" tabindex="-1"></p>
           </form>
         </div>
-        <div id="wish-list" class="wish-list" aria-label="Wishes saved in this browser"></div>
       </section>
 
       <section class="chapter closing-scene photo-scene" id="closing" aria-labelledby="closing-heading" data-photo="closing">
