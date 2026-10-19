@@ -973,7 +973,7 @@
           </figure>
         </header>
         <div class="wishes-compose">
-          <form id="wish-form" class="invitation-form">
+          <form id="wish-form" class="invitation-form" action="https://formspree.io/f/mgaoqqbp" method="POST">
             <div class="form-field" data-reveal data-delay="300">
               <label for="wish-name">Your Name</label>
               <input id="wish-name" name="name" autocomplete="name" maxlength="100" required placeholder="Enter your name">
@@ -982,12 +982,10 @@
               <label for="wish-message">Your Message</label>
               <textarea id="wish-message" name="message" rows="5" maxlength="1500" required placeholder="Write your heartfelt wishes here..."></textarea>
             </div>
-            <button class="action-button" type="submit" data-reveal data-delay="600"><span>Save Your Wish</span><span class="button-arrow" aria-hidden="true">&#8599;</span></button>
-            <p class="wishes-disclosure" data-reveal data-delay="600">Wishes are currently saved on this device only.</p>
+            <button class="action-button" type="submit" data-reveal data-delay="600"><span>Send Your Wishes</span><span class="button-arrow" aria-hidden="true">&#8599;</span></button>
             <p id="wish-status" class="form-status" role="status" tabindex="-1"></p>
           </form>
         </div>
-        <div id="wish-list" class="wish-list" aria-label="Wishes saved in this browser"></div>
       </section>
 
       <section class="chapter closing-scene photo-scene" id="closing" aria-labelledby="closing-heading" data-photo="closing">
