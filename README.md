@@ -1,23 +1,25 @@
-<div align="center">
+<h1 align="center">ARAF &amp; AZREEN</h1>
+<h3 align="center">A Cinematic Wedding Invitation</h3>
 
-# ARAF & AZREEN
-### A Cinematic Wedding Invitation
+<p align="center"><strong>A handcrafted digital wedding gift — where storytelling meets thoughtful web engineering.</strong></p>
 
-**A handcrafted digital wedding gift — where storytelling meets thoughtful web engineering.**
+<p align="center">
+  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML"><img alt="HTML5 Semantic" src="https://img.shields.io/badge/HTML5-Semantic-E34F26?logo=html5&amp;logoColor=white"></a>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS"><img alt="CSS3 Responsive" src="https://img.shields.io/badge/CSS3-Responsive-1572B6?logo=css3&amp;logoColor=white"></a>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img alt="Vanilla JavaScript" src="https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?logo=javascript&amp;logoColor=171310"></a>
+  <a href="https://vercel.com/"><img alt="Hosted on Vercel" src="https://img.shields.io/badge/Hosted_on-Vercel-171310?logo=vercel&amp;logoColor=white"></a>
+  <a href="https://github.com/Shamiul-Bashar/araf-azreen-wedding/actions/workflows/quality.yml"><img alt="Quality checks" src="https://github.com/Shamiul-Bashar/araf-azreen-wedding/actions/workflows/quality.yml/badge.svg?branch=main"></a>
+</p>
 
-[![HTML5](https://img.shields.io/badge/HTML5-Semantic-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[![CSS3](https://img.shields.io/badge/CSS3-Responsive-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?logo=javascript&logoColor=171310)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![Vercel](https://img.shields.io/badge/Hosted_on-Vercel-171310?logo=vercel&logoColor=white)](https://vercel.com/)
-[![Quality Checks](https://github.com/Shamiul-Bashar/araf-azreen-wedding/actions/workflows/quality.yml/badge.svg?branch=main)](https://github.com/Shamiul-Bashar/araf-azreen-wedding/actions/workflows/quality.yml)
+<p align="center">
+  <a href="https://araf-azreen-wedding.vercel.app/">Live Website</a> ·
+  <a href="#system-architecture">Architecture</a> ·
+  <a href="#getting-started">Getting Started</a> ·
+  <a href="#configuration">Configuration</a>
+</p>
 
-**[Live Website](https://araf-azreen-wedding.vercel.app/)** · **[Architecture](#system-architecture)** · **[Getting Started](#getting-started)** · **[Configuration](#configuration)**
-
-<img src="qa/hero-landscape-1366.png" width="78%" alt="Desktop preview of the cinematic wedding invitation">
-
-<sub>16 December 2026 · Kushtia, Bangladesh</sub>
-
-</div>
+<p align="center"><img src="qa/hero-landscape-1366.png" width="78%" alt="Desktop preview of the cinematic wedding invitation"></p>
+<p align="center"><sub>16 December 2026 · Kushtia, Bangladesh</sub></p>
 
 ---
 
@@ -67,16 +69,12 @@ Built as a personal wedding gift, the project goes beyond a digital invitation c
 
 ## Gallery & Visual Preview
 
-<div align="center">
-
 | Desktop | Mobile |
 | :--: | :--: |
 | <img src="qa/hero-landscape-1366.png" width="510" alt="Desktop hero screenshot"> | <img src="qa/mobile-hero.png" width="195" alt="Mobile hero screenshot"> |
 | <img src="qa/wishes-final-desktop.png" width="510" alt="Desktop wishes section screenshot"> | <img src="qa/wishes-final-mobile.png" width="195" alt="Mobile wishes section screenshot"> |
 
-<sub>Representative screenshots from the repository's QA captures. The deployed website is the source of truth for the latest behavior.</sub>
-
-</div>
+<p align="center"><sub>Representative screenshots from repository QA captures. The deployed website is the source of truth for current behavior.</sub></p>
 
 ## Technology Stack
 
@@ -433,11 +431,6 @@ Computer Science & Engineering Undergraduate · Khulna University of Engineering
 
 Created as a personal wedding gift for **Araf & Azreen**.
 
-<div align="center">
-
-*Crafted with love, faith and attention to detail.*
-
-**[Visit the Wedding Website](https://araf-azreen-wedding.vercel.app/)**
-
-</div>
+<p align="center"><em>Crafted with love, faith and attention to detail.</em></p>
+<p align="center"><strong><a href="https://araf-azreen-wedding.vercel.app/">Visit the Wedding Website</a></strong></p>
 
