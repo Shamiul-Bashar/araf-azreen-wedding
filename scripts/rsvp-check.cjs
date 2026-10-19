@@ -70,7 +70,7 @@ const assert = require('node:assert/strict');
   await submit.click();
   await page.waitForFunction(()=>window.__rsvpPosts.length===2);
   const no=await page.evaluate(()=>window.__rsvpPosts[1]);
-  assert.equal(new URLSearchParams(no.body).get('entry.1872556883'),"Sorry,I won't be able to attend");
+  assert.equal(new URLSearchParams(no.body).get('entry.1872556883'),"Sorry, I won't be able to attend");
 
   await page.evaluate(()=>{window.__failRsvp=true;});
   await page.locator('#guest-name').fill('QA Retry');
