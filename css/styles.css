@@ -531,10 +531,12 @@
 .chapters #rsvp .action-button:active { transform:none; }
 .chapters #rsvp .button-arrow { transition:transform .2s; }
 .chapters #rsvp .action-button:hover .button-arrow { transform:translateX(4px); }
-.chapters #rsvp .rsvp-preview { font:400 12px/1.7 'DM Sans',sans-serif; color:#4a3d34; margin-top:14px; }
-.chapters #rsvp .rsvp-preview a { color:#713b34; font-weight:600; text-decoration:underline; text-underline-offset:3px; }
-.chapters #rsvp .rsvp-preview a:focus-visible { outline:2px solid #913e3b; outline-offset:3px; }
-.chapters #rsvp .form-status { font:500 13px/1.7 'DM Sans',sans-serif; color:#332821; }
+.chapters #rsvp .form-status { font:500 13px/1.7 'DM Sans',sans-serif; color:#665447; margin:0; }
+.chapters #rsvp .form-status:not(:empty) { margin-top:13px; padding:0; border:0; background:transparent; }
+.chapters #rsvp .form-status[data-state="sent"] { color:#4f5b43; }
+.chapters #rsvp .form-status[data-state="error"] { color:#913e3b; }
+.chapters #rsvp .form-status a { display:inline-block; margin-left:5px; color:#713b34; font-weight:600; text-decoration:underline; text-underline-offset:3px; }
+.chapters #rsvp .form-status a:focus-visible { outline:2px solid #913e3b; outline-offset:3px; }
 @media(prefers-reduced-motion:reduce) {
  .chapters #rsvp .is-saved { animation:none; }
  .chapters #rsvp .button-arrow { transition:none; }
