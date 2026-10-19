@@ -47,7 +47,7 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
  await page.locator('#attendance').selectOption('yes');
  assert.equal(await page.locator('#guest-count-field').count(),0);
  await page.locator('#rsvp-form button').click();
- await page.waitForFunction(() => document.querySelector('#rsvp-status').textContent.includes('cannot verify delivery'));
+ await page.waitForFunction(() => document.querySelector('#rsvp-status').textContent.includes('has been sent'));
  const yes = await page.evaluate(() => window.__rsvpPosts[0]);
  assert.equal(yes.mode,'no-cors');
  assert.equal(new URLSearchParams(yes.body).get('entry.1556371433'),'QA Guest');
