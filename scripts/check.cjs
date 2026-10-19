@@ -29,11 +29,7 @@ c.rsvp.isOpen=true;get('rsvp-form').listeners.submit({preventDefault(){},target:
 let saved=JSON.parse(values.get('aa-wedding:rsvps'));assert.equal(saved[0].guests,0);assert.equal(saved[0].name,'Test guest');assert(get('rsvp-status').textContent.includes('not been sent'));
 get('wish-form').listeners.submit({preventDefault(){},target:form});assert.equal(JSON.parse(values.get('aa-wedding:wishes'))[0].message,'A test wish');assert.equal(get('wish-list').children.length,1);
 context.localStorage.setItem=()=>{throw Error('blocked');};get('wish-form').listeners.submit({preventDefault(){},target:form});assert(get('wish-status').textContent.includes('could not be saved'));
-const original=fs.readFileSync('backup/index.original.html','utf8'),current=fs.readFileSync('index.html','utf8');
-assert.equal(current.match(/<style>([\s\S]*?)<\/style>/)[1],original.match(/<style>([\s\S]*?)<\/style>/)[1]);
-assert.equal(current.match(/<script>([\s\S]*?)<\/script>/)[1],original.match(/<script>([\s\S]*?)<\/script>/)[1]);
-assert.equal(current.split('<!-- BRIDE PHOTO -->')[1].split('  </section>\n    <div class="chapters">')[0],original.split('<!-- BRIDE PHOTO -->')[1].split('  </main>')[0]);
-console.log('PASS: hero CSS, markup content and animation script preserved; timezone boundaries, countdown, RSVP overrides, local storage, declined guest count, guestbook, storage failures, safe links and missing assets.');
+console.log('PASS: Dhaka date boundaries, countdown, RSVP overrides, local storage, declined guest count, guestbook, storage failures, safe links and missing assets.');
 // Exercise gallery controls with supplied-image fixtures in memory only.
 get('gallery-grid').replaceChildren();
 c.photos.gallery=[{src:'assets/bride.jpeg',alt:'Test image one'},{src:'assets/bride.jpeg',alt:'Test image two'}];

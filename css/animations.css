@@ -3,8 +3,8 @@
 .chapters .type-layout { position: relative; display: block; }
 .chapters .type-measure { visibility: hidden; display: block; }
 .chapters .type-copy { position: absolute; inset: 0; display: block; }
-.chapters .photo-scene:not(#venue) .scene-image { animation: scene-breath 22s ease-in-out infinite alternate; animation-play-state: paused; }
-.chapters .photo-scene:not(#venue).is-in-view .scene-image { animation-play-state: running; }
+.chapters .photo-scene:not(#venue):not(#closing) .scene-image { animation: scene-breath 22s ease-in-out infinite alternate; animation-play-state: paused; }
+.chapters .photo-scene:not(#venue):not(#closing).is-in-view .scene-image { animation-play-state: running; }
 .chapters .venue-art .arch-line { stroke-dasharray: 1; stroke-dashoffset: 0; }
 .chapters .venue-art.motion-pending .arch-line { stroke-dashoffset: 1; }
 .chapters .venue-art.is-drawn .arch-line { stroke-dashoffset:0; }
@@ -20,6 +20,6 @@
 @media (prefers-reduced-motion: reduce) {
   .chapters .motion-pending { opacity: 1; }
   .chapters .scene-media { transform: none; }
-  .chapters .photo-scene:not(#venue) .scene-image { animation: none; }
+  .chapters .photo-scene:not(#venue):not(#closing) .scene-image { animation: none; }
   .chapters .venue-art.motion-pending .arch-line { stroke-dashoffset: 0; }
 }

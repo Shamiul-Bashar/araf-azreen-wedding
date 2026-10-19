@@ -27,3 +27,6 @@ Desktop.ini
 
 # Generated QA capture may contain network metadata
 qa/venue-map-result.txt
+
+# Generated browser screenshots (existing tracked captures remain in history)
+qa/*.png

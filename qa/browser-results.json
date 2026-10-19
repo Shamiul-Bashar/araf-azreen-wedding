@@ -17,7 +17,7 @@
     },
     {
       "id": "memories",
-      "active": 5,
+      "active": 6,
       "typing": false
     },
     {
@@ -27,7 +27,7 @@
     },
     {
       "id": "rsvp",
-      "active": 9,
+      "active": 8,
       "typing": false
     },
     {
@@ -37,8 +37,8 @@
     },
     {
       "id": "closing",
-      "active": 10,
-      "typing": true
+      "active": 8,
+      "typing": false
     }
   ],
   "sizes": [
@@ -70,13 +70,13 @@
       "width": 768,
       "client": 753,
       "scroll": 753,
-      "hero": 450
+      "hero": 753
     },
     {
       "width": 1366,
       "client": 1351,
       "scroll": 1351,
-      "hero": 450
+      "hero": 1351
     }
   ],
   "errors": [],

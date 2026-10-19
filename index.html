@@ -10,6 +10,35 @@
 
   <title>ARAF & AZREEN | Wedding Invitation</title>
 
+  <link rel="stylesheet" href="css/intro.css">
+  <script>
+    // Independent watchdog: a failed intro module must never block the invitation.
+    (() => {
+      const root = document.documentElement;
+      const active = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let deadline;
+      window.WeddingIntro = {
+        active,
+        finish() {
+          if (!this.active) return;
+          this.active = false;
+          clearTimeout(deadline);
+          const overlay = document.getElementById('wedding-intro');
+          const restoreFocus = overlay?.contains(document.activeElement);
+          root.classList.remove('intro-active', 'intro-leaving');
+          const main = document.getElementById('top');
+          if (main) main.inert = false;
+          if (overlay) overlay.hidden = true;
+          document.dispatchEvent(new Event('wedding:intro-complete'));
+          if (restoreFocus) document.getElementById('replayButton')?.focus({preventScroll:true});
+        }
+      };
+      if (active) {
+        root.classList.add('intro-active');
+        deadline = setTimeout(() => window.WeddingIntro.finish(), 4200);
+      }
+    })();
+  </script>
   <!-- GOOGLE FONTS -->
   <link rel="preconnect"
         href="https://fonts.googleapis.com">
@@ -680,6 +709,16 @@
 </head>
 
 <body>
+  <div id="wedding-intro" class="wedding-intro" aria-label="Wedding invitation introduction">
+    <div class="intro-particles" aria-hidden="true"></div>
+    <div class="intro-content">
+      <p class="intro-label">Wedding Invitation</p>
+      <p class="intro-names" aria-label="ARAF &amp; AZREEN"><span class="intro-measure" aria-hidden="true">ARAF &amp; AZREEN</span><span id="intro-typed" aria-hidden="true"></span></p>
+      <div class="intro-rule" aria-hidden="true"></div>
+      <p class="intro-subtitle">A celebration of love, faith, and togetherness.</p>
+    </div>
+    <button class="intro-skip" id="intro-skip" type="button">Skip intro</button>
+  </div>
 
   <!-- MAIN INVITATION -->
 
@@ -904,14 +943,22 @@
       </section>
 
       <section class="chapter rsvp-scene" id="rsvp" aria-labelledby="rsvp-heading">
-        <header class="response-heading"><p class="eyebrow" data-reveal>06 — Your presence</p><p class="script-note" data-reveal>An invitation to you</p><h2 id="rsvp-heading" data-reveal="mask">Be Our<br><em>Guest</em></h2><div class="fine-rule" data-reveal="line" aria-hidden="true"></div><p class="intro" data-reveal data-delay="160">We would be delighted<br>to celebrate with you.</p><p class="demo-note" data-reveal>Local preview · Responses are saved only in this browser and are not sent to the couple.</p></header>
-        <div class="response-form"><p id="rsvp-closed" class="closed-note" hidden>RSVP is closed. Thank you for being part of our celebration.</p><form id="rsvp-form" class="invitation-form"><fieldset id="rsvp-fields">
-          <div class="form-field" data-reveal><label for="guest-name"><span class="field-number">01</span> Your full name</label><input id="guest-name" name="name" autocomplete="name" required maxlength="100" placeholder="As you would like to be welcomed"></div>
-          <div class="form-field" data-reveal data-delay="100"><label for="attendance"><span class="field-number">02</span> Will you attend?</label><select id="attendance" name="attendance" required aria-controls="guest-count-field"><option value="">Please choose</option><option value="yes">Joyfully accepts</option><option value="no">Regretfully declines</option></select></div>
+        <div class="rsvp-backdrop" aria-hidden="true" data-reveal="rise"></div>
+        <header class="response-heading">
+          <p class="eyebrow" data-reveal>A PERSONAL INVITATION</p>
+          <p class="script-note" data-reveal data-delay="40">An Invitation to Celebrate</p>
+          <h2 id="rsvp-heading" data-reveal="rise" data-delay="80">Be Our<br><em>Guest</em></h2>
+          <div class="fine-rule" data-reveal="line" aria-hidden="true"></div>
+          <p class="rsvp-subtitle" data-reveal data-delay="120">Your presence would make our celebration even more meaningful.</p>
+          <p class="rsvp-invitation" data-reveal data-delay="160">As we begin this new chapter, we'd be honored to celebrate with you. Kindly let us know if you can join us.</p>
+        </header>
+        <div class="response-form"><p id="rsvp-closed" class="closed-note" hidden>RSVP is closed. Thank you for being part of our celebration.</p><form id="rsvp-form" class="invitation-form" aria-describedby="rsvp-preview"><fieldset id="rsvp-fields">
+          <div class="form-field" data-reveal><label for="guest-name">Your Full Name</label><input id="guest-name" name="name" autocomplete="name" required maxlength="100" placeholder="Enter your full name"></div>
+          <div class="form-field" data-reveal data-delay="100"><label for="attendance">Will You Be Joining Us?</label><select id="attendance" name="attendance" required aria-controls="guest-count-field"><option value="">Select your response</option><option value="yes">Yes, I'll be there</option><option value="no">Sorry, I won't be able to attend</option></select></div>
           <div id="guest-count-field" class="guest-count-field" hidden><label for="guest-count">Number of guests, including you</label><input id="guest-count" name="guests" type="number" min="1" max="20" value="1" disabled></div>
-          <div class="form-field" data-reveal data-delay="180"><label for="rsvp-message"><span class="field-number">03</span> A little note <span>(optional)</span></label><textarea id="rsvp-message" name="message" maxlength="1000" rows="3" placeholder="Anything you would like us to know"></textarea></div>
-          <button class="action-button" type="submit" data-reveal><span>Save my demo response</span><span class="button-arrow" aria-hidden="true">↗</span></button>
-        </fieldset><p id="rsvp-status" class="form-status" role="status" tabindex="-1"></p></form></div>
+          <div class="form-field" data-reveal data-delay="180"><label for="rsvp-message">A Note for the Couple <span>(Optional)</span></label><textarea id="rsvp-message" name="message" maxlength="1000" rows="3" placeholder="Share a wish or a message..."></textarea></div>
+          <button class="action-button" type="submit" data-reveal data-delay="220"><span>Save RSVP on This Device</span><span class="button-arrow" aria-hidden="true">↗</span></button>
+        <p class="rsvp-preview" id="rsvp-preview">Preview mode &mdash; your response is saved on this device only.</p></fieldset><p id="rsvp-status" class="form-status" role="status" tabindex="-1"></p></form></div>
       </section>
 
       <section class="chapter wishes-scene" id="wishes" aria-labelledby="wishes-heading">
@@ -923,7 +970,7 @@
           <div class="fine-rule" data-reveal="line" data-delay="350" aria-hidden="true"></div>
           <figure class="wishes-verse">
             <blockquote data-reveal data-delay="400">&ldquo;And We created you in pairs.&rdquo;</blockquote>
-            <figcaption data-reveal data-delay="500"><cite>&mdash;  Surah Al-Furqan (25:74)</cite></figcaption>
+            <figcaption data-reveal data-delay="500"><cite>&mdash; Surah An-Naba (78:8)</cite></figcaption>
           </figure>
         </header>
         <div class="wishes-compose">
@@ -945,9 +992,18 @@
       </section>
 
       <section class="chapter closing-scene photo-scene" id="closing" aria-labelledby="closing-heading" data-photo="closing">
-        <div class="closing-copy"><p class="eyebrow" data-type>Forever Begins Here</p><div class="fine-rule" data-reveal="line" aria-hidden="true"></div><h2 id="closing-heading"><span data-reveal="mask">Thank You for</span><span data-reveal="mask" data-delay="160">Being Part of</span><em data-reveal="mask" data-delay="320">Our Story</em></h2><p class="closing-names" data-couple></p><p class="intro" data-reveal data-delay="400">With grateful hearts, we look forward to a lifetime of affection and mercy.</p><span class="closing-ornament" aria-hidden="true" data-reveal="line">— ◇ —</span><a href="#top" class="text-link" data-reveal data-delay="500">Back to the beginning <span aria-hidden="true">↑</span></a></div>
+        <div class="closing-copy">
+          <p class="eyebrow" data-reveal>WITH LOVE &amp; GRATITUDE</p>
+          <h2 id="closing-heading"><span data-reveal data-delay="60">Thank You</span><span class="closing-middle" data-reveal data-delay="100">For Being Part of</span><em data-reveal data-delay="140">Our Story</em></h2>
+          <p class="closing-names" data-couple></p>
+          <p class="intro" data-reveal data-delay="220">Your love, prayers, and blessings make this new beginning even more meaningful. We look forward to celebrating with you.</p>
+          <a href="#top" class="text-link" data-reveal data-delay="260">Back to the Beginning <span aria-hidden="true">&uarr;</span></a>
+        </div>
       </section>
-      <div class="music-bar"><span class="sound-waves" aria-hidden="true"><i></i><i></i><i></i><i></i></span><button id="music-toggle" type="button" disabled aria-pressed="false">Music unavailable</button><span id="music-status" role="status">A soundtrack will be added soon.</span></div>
+      <footer class="developer-footer">
+        <p>&copy; 2026 MD SHAMIUL BASHAR SIAM</p>
+        <a id="portfolio-link" href="https://shamiul-dev.vercel.app/" target="_blank" rel="noopener noreferrer">Portfolio <span aria-hidden="true">&nearr;</span></a>
+      </footer>
       <dialog id="gallery-dialog" class="gallery-dialog" aria-label="Photo viewer"><button id="gallery-close" class="viewer-close" aria-label="Close photo viewer">✕</button><img id="gallery-full" alt=""><div class="viewer-toolbar"><button id="gallery-prev" aria-label="Previous photo">←</button><p id="gallery-caption" aria-live="polite"></p><button id="gallery-next" aria-label="Next photo">→</button></div></dialog>
     </div>
 
@@ -1097,12 +1153,15 @@
        START ON PAGE LOAD
     ==================================== */
 
-    replayAnimations();
+    if (window.WeddingIntro?.active) {
+      document.addEventListener('wedding:intro-complete', replayAnimations, { once:true });
+    } else replayAnimations();
 
   </script>
 
 
   <script src="js/wedding-config.js"></script>
+  <script src="js/intro.js"></script>
   <script src="js/main.js"></script>
   <script src="js/gallery.js"></script>
   <script src="js/rsvp.js"></script>

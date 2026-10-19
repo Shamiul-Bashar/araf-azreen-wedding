@@ -8,9 +8,9 @@ Open `index.html` with VS Code **Live Server**. Alternatively, run `python -m ht
 
 ## What is included
 
-Nine continuous sections: original hero, Our Story, Save the Date, Mehendi/Holud/Reception, Moments & Memories gallery, venue, RSVP, wedding wishes, and cinematic closing. The hero preserves its 450px desktop width. Sections 02?09 now expand into deliberate editorial desktop layouts and stack naturally on mobile. They include scroll reveals, reduced-motion handling, safe map links, downloadable calendar files, and optional user-started music.
+Nine continuous sections: original hero, Our Story, Save the Date, Mehendi/Holud/Reception, Moments & Memories gallery, venue, RSVP, wedding wishes, and cinematic closing. The landscape hero fills the viewport width. The remaining sections use editorial desktop layouts and responsive mobile compositions. They include scroll reveals, reduced-motion handling, safe map links, downloadable calendar files, and a developer portfolio footer.
 
-`backup/index.original.html` is an exact copy of the original file. The hero's styles, interior markup, Arabic, translation, image, typewriter and Replay Motion script are retained. Its former main element is now a section within the page's main landmark. Additional styles are scoped to `.chapters`; the hero itself retains its original width, centered in the wider page.
+The introduction types the couple names over a charcoal background with subtle gold particles, then fades out at approximately 3.45 seconds. A separate 4.2-second watchdog releases the page if the intro module fails. Skip Intro, reduced motion and JavaScript-disabled fallbacks are supported. Hero animation starts after the introduction finishes.
 
 ## Edit details
 
@@ -26,17 +26,17 @@ Edit `js/wedding-config.js`:
 
 The site uses the visitor's actual clock. The supplied brief described December 18 as the current date, while this project's session date was October 18, 2026. No clock is hardcoded. Before the date it counts to the specified time, or midnight in Dhaka if time is unknown (explicitly described as a countdown to the date). On the date it shows a wedding-day state; afterward it says “Celebrated on 16 December 2026.” No negative countdown is displayed.
 
-## Add photographs and music
+## Photographs
 
 Place real files in `assets/`:
 
 - `story-bg.png` — Our Story
 - `save-date.png` — optional date background
-- `closing.jpeg` — closing photograph
+- `closing-bg.png` — closing photograph
 - `gallery-1.jpeg` through `gallery-4.jpeg` — gallery
 - `music.mp3` — your supplied/licensed soundtrack
 
-The existing `bride.jpeg` remains the hero photograph. Missing optional photographs use warm editorial backgrounds; the gallery displays a coming-soon message. No fake images or audio files are generated.
+The existing `bride.jpeg` remains the hero photograph. Missing optional photographs use warm editorial backgrounds; the gallery skips missing entries. No fake images or audio files are generated.
 
 After adding or removing assets, run:
 
@@ -44,9 +44,9 @@ After adding or removing assets, run:
 python scripts/update-assets.py
 ```
 
-This refreshes `availableAssets` inside the configuration, preventing requests to missing files. Alternatively edit that array manually. If filenames differ, also update `photos` / `music.src`. Gallery entries may be strings or `{ src: 'assets/photo.jpeg', alt: 'Your meaningful description' }` objects. All photography is displayed in grayscale. The gallery supports native dialog focus containment, focus restoration, animated Escape closing, arrow keys, swipe and touch-sized buttons.
+This refreshes `availableAssets` inside the configuration, preventing requests to missing files. Alternatively edit that array manually. If filenames differ, also update `photos` / `music.src`. Gallery entries may be strings or `{ src: 'assets/photo.jpeg', alt: 'Your meaningful description' }` objects. Hero, story, date and gallery retain their monochrome treatment; the closing photograph retains its color. The gallery supports native dialog focus containment, focus restoration, animated Escape closing, arrow keys, swipe and touch-sized buttons.
 
-Music stays unavailable until registered in the asset inventory. It never autoplays, starts only on a button press, and continues across scrolling. Set `music.volume` between 0 and 1. Pause/resume uses the same audio instance.
+The old music footer has been replaced by developer attribution and a real portfolio link. The retained music module exits without creating audio when its controls are absent.
 
 ## Demo storage and production
 
@@ -54,12 +54,13 @@ RSVP and wishes are **browser-local demos**. They do not reach the couple, synch
 
 The local adapter in `js/rsvp.js` is the replacement point for a real service. Before production, connect and test a backend, validation, moderation and appropriate access controls. Setting `demoMode: false` disables submissions; it does not invent a backend. Never put service credentials in frontend JavaScript.
 
-Before launch: supply final photographs/licensed music, connect the real forms, and review the website on actual phones and browsers.
+Before accepting delivered responses, connect the real forms and review the website on actual phones and browsers.
 
 ## Files and checks
 
 - `index.html`: preserved hero plus all section markup.
-- `css/styles.css`, `css/animations.css`: isolated styling and motion.
+- `css/styles.css`, `css/animations.css`: section styling and motion.
+- `css/intro.css`, `js/intro.js`: isolated cinematic introduction.
 - `js/wedding-config.js`: wedding data and asset inventory.
 - `js/main.js`: date/time logic, events, venue, calendar and photo setup.
 - `js/motion.js`: single site-wide motion controller, typed titles, viewport reveals and progress.
@@ -68,7 +69,7 @@ Before launch: supply final photographs/licensed music, connect the real forms, 
 - `scripts/update-assets.py`: optional asset inventory helper.
 - `scripts/check.cjs`: dependency-free Node checks.
 
-Run `node scripts/check.cjs`. The checks cover original hero source preservation, Dhaka date boundaries, past/future states, RSVP overrides, storage and failure handling, declined guest count, guestbook rendering, safe URLs, gallery navigation and calendar prerequisites. Interaction checks use a simulated DOM; they are not browser tests.
+Run `node scripts/check.cjs`. The checks cover Dhaka date boundaries, past/future states, RSVP overrides, storage and failure handling, declined guest count, guestbook rendering, safe URLs, gallery navigation and calendar prerequisites. Interaction checks use a simulated DOM; they are not browser tests.
 
 The redesign was verified in local headless Chrome. See `REDESIGN-NOTES.md` for the audit, motion by section, test results and limitations. Screenshots are in `qa/`, and machine-readable layout/motion results are in `qa/browser-results.json`. The website has no new runtime dependencies; Playwright Core was installed only in the system temporary directory for QA.
 
@@ -96,10 +97,16 @@ $qaProfile = Join-Path $env:TEMP 'araf-azreen-chrome-qa'
 Start-Process -FilePath 'C:/Program Files/Google/Chrome/Application/chrome.exe' -WindowStyle Hidden -ArgumentList @('--headless=new', '--remote-debugging-address=127.0.0.1', '--remote-debugging-port=9223', ('--user-data-dir="' + $qaProfile + '"'), '--no-first-run', '--no-default-browser-check', 'about:blank')
 node scripts/browser-check.cjs
 node scripts/motion-check.cjs
+node scripts/date-check.cjs
+node scripts/events-check.cjs
+node scripts/venue-check.cjs
+node scripts/wishes-check.cjs
+node scripts/rsvp-check.cjs
+node scripts/intro-check.cjs
 ```
 
 These use isolated browser contexts and in-memory optional-asset fixtures, never real RSVP submissions or production asset changes. Stop the test server and isolated Chrome instance afterward. Physical iOS/Android touch behavior and Safari/Firefox still need device testing.
 
 ## Current completion audit
 
-Confirmed event details and the individually polished sections are retained. Gallery photos 1 and 2 are now registered; missing photos 3 and 4 are skipped. The Venue uses overlapping reveals finishing in 630ms, with no continuous photo zoom. Reception details are read from the event configuration. Music and the closing photo remain optional missing assets. RSVP and wishes remain local demos.
+Confirmed event details and the individually polished sections are retained. Gallery photos 1 and 2 are now registered; missing photos 3 and 4 are skipped. The Venue uses overlapping reveals finishing in 630ms, with no continuous photo zoom. Reception details are read from the event configuration. The closing photo is supplied as `assets/closing-bg.png`. The developer footer links to https://shamiul-dev.vercel.app/. RSVP and wishes remain local demos.

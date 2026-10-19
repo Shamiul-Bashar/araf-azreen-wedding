@@ -168,21 +168,6 @@
 .chapters .wish-entry p { font: 500 10px/1.8 'DM Sans', sans-serif; color: var(--muted); margin-top: 18px; }
 
 /* Final frame and quiet sound control. */
-.chapters .closing-scene { min-height: 100svh; display: grid; place-items: center; text-align: center; background: radial-gradient(ellipse at 50% 110%, #625a4e, #292521 45%, #171310); }
-.chapters .closing-scene::after { background: linear-gradient(0deg, #17131090, #17131030); }
-.chapters .closing-copy { width: 100%; max-width: 800px; }
-.chapters .closing-scene h2 { font-size: clamp(49px, 7vw, 98px); line-height: 1.12; }
-.chapters .closing-scene h2 > * { display: block; }
-.chapters .closing-scene h2 em { font: 400 1.35em/1.3 'Great Vibes', cursive; margin-top: 10px; }
-.chapters .closing-scene .fine-rule { margin: 30px auto 40px; transform-origin: center; }
-.chapters .closing-names { display: flex; align-items: center; justify-content: center; gap: 14px; font-size: clamp(28px, 4vw, 48px); letter-spacing: .06em; margin-top: 42px; }
-.chapters .closing-names .name-amp { font-family: 'Great Vibes', cursive; color: #c7ad73; }
-.chapters .closing-scene .intro { margin: 26px auto 0; max-width: 40ch; }
-.chapters .closing-ornament { display: block; color: var(--accent); margin-top: 32px; }
-.chapters .closing-scene .text-link { margin-top: 35px; color: #ddd2c2; }
-.chapters .music-bar { padding: 20px var(--gutter); background: var(--ink); display: flex; gap: 16px; align-items: center; justify-content: center; color: #c1b5a7; }
-.chapters .music-bar button { background: none; border: 0; border-bottom: 1px solid #827458; min-height: 44px; padding: 10px 0; flex-shrink: 0; color: var(--ivory); font: 500 11px 'DM Sans', sans-serif; cursor: pointer; }
-.chapters .music-bar > span:last-child { font: 400 10px/1.8 'DM Sans', sans-serif; }
 .chapters .sound-waves { display: flex; gap: 3px; height: 20px; align-items: center; }
 .chapters .sound-waves i { height: 8px; width: 1px; background: var(--accent); }
 .chapters .sound-waves i:nth-child(2n) { height: 16px; }
@@ -229,10 +214,6 @@
   .chapters .response-heading h2, .chapters .wishes-heading h2 { font-size: clamp(65px, 17vw, 100px); }
   .chapters .wish-mark { position: absolute; right: 0; bottom: -25px; font-size: 140px; margin: 0; }
   .chapters .wish-list { grid-template-columns: 1fr; }
-  .chapters .closing-scene h2 { font-size: clamp(43px, 10.5vw, 72px); }
-  .chapters .closing-names { gap: 9px; font-size: clamp(26px, 7vw, 38px); }
-  .chapters .music-bar { flex-wrap: wrap; gap: 12px; }
-  .chapters .music-bar > span:last-child { flex-basis: 100%; text-align: center; }
 }
 @media (max-width: 359px) {
   .chapters .chapter { padding-inline: 22px; }
@@ -527,74 +508,78 @@
 
 
 
-/* ==========================================
-   RSVP — PREMIUM WEDDING BACKGROUND
-========================================== */
-
-.chapters #rsvp {
-    position: relative;
-
-    background-image:
-        linear-gradient(
-            90deg,
-            rgba(247, 241, 234, 0.86) 0%,
-            rgba(247, 241, 234, 0.68) 50%,
-            rgba(247, 241, 234, 0.84) 100%
-        ),
-        url("../assets/rsvp-bg.png");
-
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-color: #f7f1ea;
-
-    color: #251c19;
+/* RSVP: open editorial form over the original warm wedding photograph. */
+.chapters #rsvp { position:relative; isolation:isolate; overflow:hidden; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:48px 12%; align-items:start; min-height:850px; padding-block:80px; background:#f7f1ea; color:#211915; }
+.chapters #rsvp .rsvp-backdrop { position:absolute; inset:0; z-index:-1; pointer-events:none; background:linear-gradient(90deg,rgba(247,241,234,.78),rgba(247,241,234,.20) 42%,rgba(247,241,234,.82) 67%,rgba(247,241,234,.88)),linear-gradient(180deg,rgba(247,241,234,.60),transparent 62%),url('../assets/rsvp-bg.png') center / cover no-repeat; }
+.chapters #rsvp .response-heading { max-width:440px; }
+.chapters #rsvp .eyebrow { font:600 11px/1.8 'DM Sans',sans-serif; letter-spacing:.14em; color:#67503a; margin-bottom:18px; }
+.chapters #rsvp .script-note { font:400 30px/1.4 'Great Vibes',cursive; color:#913e3b; margin:0 0 18px; }
+.chapters #rsvp h2 { font:500 clamp(70px,6.2vw,86px)/1.04 'Cormorant Garamond',serif; color:#211915; }
+.chapters #rsvp .fine-rule { margin:24px 0; width:62px; }
+.chapters #rsvp .rsvp-subtitle { font:500 26px/1.3 'Cormorant Garamond',serif; color:#332821; max-width:28ch; }
+.chapters #rsvp .rsvp-invitation { font:400 14px/1.75 'DM Sans',sans-serif; color:#4a3d34; max-width:40ch; margin-top:18px; }
+.chapters #rsvp .response-form { align-self:start; padding-top:8px; }
+.chapters #rsvp .form-field { margin-bottom:27px; }
+.chapters #rsvp label { font:600 14px/1.6 'DM Sans',sans-serif; color:#29211d; margin-bottom:9px; }
+.chapters #rsvp :is(input,select,textarea) { font:400 16px/1.6 'DM Sans',sans-serif; padding:13px 10px; min-height:52px; color:#211915; border-bottom:1px solid #75675c; background:rgba(247,241,234,.18); transition:border-color .2s,background .2s,box-shadow .2s; }
+.chapters #rsvp :is(input,textarea)::placeholder { font-size:16px; color:#6c5d52; opacity:1; }
+.chapters #rsvp textarea { min-height:110px; }
+.chapters #rsvp select { appearance:none; padding-right:36px; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10' viewBox='0 0 16 10'%3E%3Cpath d='m2 2 6 6 6-6' fill='none' stroke='%234a3d34' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; }
+.chapters #rsvp option { background:#f7f1ea; color:#211915; }
+.chapters #rsvp :is(input,select,textarea):focus { outline:2px solid #913e3b; outline-offset:3px; border-color:#913e3b; box-shadow:none; background-color:#f7f1ea80; }
+.chapters #rsvp .action-button { margin-top:26px; padding:16px 20px; min-height:56px; font:600 14px/1.5 'DM Sans',sans-serif; color:#fff; background:#913e3b; border-color:#913e3b; transition:background .2s; }
+.chapters #rsvp .action-button:hover { background:#73302e; border-color:#73302e; }
+.chapters #rsvp .action-button:active { transform:none; }
+.chapters #rsvp .button-arrow { transition:transform .2s; }
+.chapters #rsvp .action-button:hover .button-arrow { transform:translateX(4px); }
+.chapters #rsvp .rsvp-preview { font:400 12px/1.7 'DM Sans',sans-serif; color:#4a3d34; margin-top:14px; }
+.chapters #rsvp .form-status { font:500 13px/1.7 'DM Sans',sans-serif; color:#332821; }
+@media(prefers-reduced-motion:reduce) {
+ .chapters #rsvp .is-saved { animation:none; }
+ .chapters #rsvp .button-arrow { transition:none; }
+ .chapters #rsvp .action-button:hover .button-arrow { transform:none; }
+}
+@media(max-width:767px) {
+ .chapters #rsvp { grid-template-columns:minmax(0,1fr); gap:32px; padding-block:300px 60px; min-height:0; }
+ .chapters #rsvp .rsvp-backdrop { inset:0 0 auto; height:330px; background:linear-gradient(180deg,transparent 30%,rgba(247,241,234,.12) 55%,#f7f1ea 100%),url('../assets/rsvp-bg.png') 32% 75% / cover no-repeat; }
+ .chapters #rsvp h2 { font-size:clamp(48px,13vw,58px); }
+ .chapters #rsvp .script-note { font-size:26px; }
+ .chapters #rsvp .rsvp-subtitle { font-size:23px; }
+ .chapters #rsvp .rsvp-invitation { font-size:14px; }
+ .chapters #rsvp .response-form { padding-top:0; }
 }
 
-/* ==========================================
-   TYPOGRAPHY & READABILITY
-========================================== */
 
-.chapters #rsvp h1,
-.chapters #rsvp h2,
-.chapters #rsvp h3 {
-    color: #211915;
-}
-
-.chapters #rsvp .eyebrow {
-    color: #916D45;
-}
-
-.chapters #rsvp input,
-.chapters #rsvp textarea,
-.chapters #rsvp select {
-    color: #251c19;
-    border-bottom-color: rgba(95, 69, 46, 0.45);
-}
-
-.chapters #rsvp input::placeholder,
-.chapters #rsvp textarea::placeholder {
-    color: #67594f;
-    opacity: 1;
-}
-
-/* ==========================================
-   MOBILE RESPONSIVE
-========================================== */
-
-@media (max-width: 767px) {
-
-    .chapters #rsvp {
-        background-image:
-            linear-gradient(
-                180deg,
-                rgba(247, 241, 234, 0.90),
-                rgba(247, 241, 234, 0.78) 45%,
-                rgba(247, 241, 234, 0.90)
-            ),
-            url("../assets/rsvp-bg.png");
-
-        background-size: cover;
-        background-position: center center;
-    }
+/* Closing: one full-color photograph and a quiet right-hand editorial column. */
+.chapters #closing { min-height:800px; display:grid; grid-template-columns:1fr 1fr; gap:6%; align-items:center; padding-block:80px; background:#101713; color:#f7f1ea; }
+.chapters #closing .scene-media { inset:0; transform:none; }
+.chapters #closing .scene-image { object-fit:cover; object-position:38% center; filter:none; animation:none; }
+.chapters #closing::after { background:linear-gradient(90deg,rgba(16,23,19,.03) 20%,rgba(16,23,19,.12) 43%,rgba(16,23,19,.65) 70%,rgba(16,23,19,.72)); }
+.chapters #closing .closing-copy { grid-column:2; max-width:560px; text-align:left; }
+.chapters #closing .eyebrow { font:600 11px/1.8 'DM Sans',sans-serif; letter-spacing:.14em; color:#d6b98b; margin-bottom:24px; }
+.chapters #closing h2 { font:500 clamp(56px,5.3vw,76px)/1.1 'Cormorant Garamond',serif; letter-spacing:-.025em; }
+.chapters #closing h2 > * { display:block; }
+.chapters #closing .closing-middle { font-size:.78em; margin-top:9px; }
+.chapters #closing h2 em { font:400 1.1em/1.5 'Great Vibes',cursive; margin-top:8px; padding-right:12px; }
+.chapters #closing .closing-names { display:flex; gap:12px; align-items:center; margin-top:22px; font:500 clamp(32px,3vw,42px)/1.3 'Cormorant Garamond',serif; }
+.chapters #closing .name-amp { color:#c2a16a; }
+.chapters #closing .intro { max-width:42ch; margin-top:22px; font:400 15px/1.8 'DM Sans',sans-serif; color:#e8ded1; }
+.chapters #closing .text-link { margin-top:28px; color:#f7f1ea; font-size:13px; }
+.chapters .developer-footer { padding:28px var(--gutter); text-align:center; background:#101713; border-top:1px solid #d6b98b40; }
+.chapters .developer-footer p { font:500 11px/1.9 'DM Sans',sans-serif; letter-spacing:.08em; color:#f7f1ea; }
+.chapters .developer-footer a { display:inline-flex; gap:8px; align-items:center; min-height:44px; margin-top:5px; color:#d6b98b; font:600 13px/1.5 'DM Sans',sans-serif; text-decoration:underline; text-underline-offset:5px; transition:color .2s; }
+.chapters .developer-footer a:focus-visible { outline:2px solid #d6b98b; outline-offset:5px; }
+.chapters .developer-footer a:hover { color:#f7f1ea; }
+.chapters .developer-footer a span { transition:transform .2s; }
+@media(hover:hover) and (prefers-reduced-motion:no-preference) { .chapters .developer-footer a:hover span { transform:translate(3px,-3px); } }
+@media(max-width:899px) {
+ .chapters #closing { min-height:0; display:block; padding-block:380px 60px; }
+ .chapters #closing .scene-media { inset:0 0 auto; height:420px; }
+ .chapters #closing .scene-image { object-position:35% 65%; }
+ .chapters #closing::after { background:linear-gradient(180deg,transparent 230px,#101713 410px); }
+ .chapters #closing .closing-copy { max-width:540px; margin:auto; }
+ .chapters #closing h2 { font-size:clamp(48px,12vw,54px); }
+ .chapters #closing .closing-middle { font-size:.88em; }
+ .chapters #closing .closing-names { font-size:30px; }
+ .chapters #closing .intro { font-size:14px; }
 }

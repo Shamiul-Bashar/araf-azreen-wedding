@@ -1,3 +1,7 @@
+# Historical redesign notes
+
+The initial audit below predates the completed landscape hero, supplied photographs, RSVP polish, developer footer and intro. See README.md and FINAL-VERIFICATION.md for the current state.
+
 # Redesign audit and verification
 
 ## Preserved

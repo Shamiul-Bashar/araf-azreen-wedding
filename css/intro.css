@@ -1,0 +1,25 @@
+/* Isolated wedding introduction; default-hidden if JavaScript is unavailable. */
+.wedding-intro { display:none; }
+html.intro-active,html.intro-active body { overflow:hidden; overscroll-behavior:none; }
+html.intro-active .wedding-page { pointer-events:none; }
+html.intro-active .wedding-intro { position:fixed; inset:0; z-index:10000; display:grid; place-items:center; min-height:100svh; padding:32px 20px; overflow:hidden; background:#0f0f10; color:#f7f1ea; opacity:1; transition:opacity .55s ease; }
+html.intro-leaving .wedding-intro { opacity:0; }
+.intro-content { position:relative; width:min(100%,720px); text-align:center; }
+.intro-label { font:500 11px/1.8 'DM Sans',sans-serif; text-transform:uppercase; letter-spacing:.22em; color:#d6b98b; margin-bottom:28px; animation:intro-rise .6s ease both; }
+.intro-names { position:relative; display:inline-grid; font:500 clamp(34px,7.5vw,76px)/1.2 'Cormorant Garamond',serif; letter-spacing:.025em; white-space:nowrap; }
+.intro-names > span { grid-area:1/1; }
+.intro-measure { visibility:hidden; }
+#intro-typed { justify-self:start; }
+#intro-typed::after { content:''; display:inline-block; width:1px; height:.65em; margin-left:5px; background:#c2a16a; animation:intro-cursor .65s steps(1) infinite; }
+.intro-complete #intro-typed::after { animation:none; opacity:0; }
+.intro-rule { width:48px; height:1px; margin:28px auto 19px; background:#b5944c; opacity:0; transform:scaleX(.4); transition:opacity .4s,transform .4s; }
+.intro-subtitle { max-width:34ch; margin:auto; font:400 clamp(12px,2.8vw,14px)/1.8 'DM Sans',sans-serif; color:#ddd2c2; opacity:0; transform:translateY(8px); transition:opacity .45s,transform .45s; }
+.intro-complete .intro-subtitle,.intro-complete .intro-rule { opacity:1; transform:none; }
+.intro-skip { position:absolute; bottom:max(24px,env(safe-area-inset-bottom)); right:24px; min-height:44px; padding:10px 14px; background:none; border:0; color:#c9c0b7; font:500 11px 'DM Sans',sans-serif; cursor:pointer; }
+.intro-skip:focus-visible { outline:2px solid #d6b98b; outline-offset:3px; }
+.intro-particles { position:absolute; inset:0; pointer-events:none; }
+.intro-particles i { position:absolute; left:var(--x); top:var(--y); width:2px; height:2px; border-radius:50%; background:#d6b98b; box-shadow:0 0 5px #d6b98b40; opacity:.35; animation:intro-drift 5s ease-in-out infinite alternate; animation-delay:var(--delay); }
+@keyframes intro-drift { from { transform:translateY(8px); opacity:.15; } to { transform:translateY(-13px); opacity:.45; } }
+@keyframes intro-rise { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+@keyframes intro-cursor { 50% { opacity:0; } }
+@media(prefers-reduced-motion:reduce) { html.intro-active .wedding-intro { display:none; } .wedding-intro * { animation:none!important; transition:none!important; } }

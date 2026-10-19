@@ -1,6 +1,6 @@
 (() => {
   const {config,$,available}=window.Wedding;
-  if(!available(config.music.src))return;
+  if(!$('music-toggle') || !$('music-status') || !available(config.music.src))return;
   const audio=new Audio();audio.preload='none';audio.loop=true;audio.volume=Math.max(0,Math.min(1,config.music.volume ?? .35));audio.src=config.music.src;
   const button=$('music-toggle');button.disabled=false;button.textContent='Music off';$('music-status').textContent='A little atmosphere, only if you wish.';
   function update(){button.textContent=audio.paused?'Music off':'Music on';button.setAttribute('aria-pressed',String(!audio.paused));button.closest('.music-bar')?.classList.toggle('is-playing',!audio.paused);$('music-status').textContent=audio.paused?'A little atmosphere, only if you wish.':'Select Music on to pause.';}

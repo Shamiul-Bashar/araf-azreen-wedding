@@ -42,6 +42,9 @@
     });parent.append(button);
   }
   window.Wedding = {config,$,element,available,zonedDate,dateState,rsvpOpen,safeUrl};
+  const portfolio = $('portfolio-link');
+  const portfolioUrl = safeUrl(config.developer?.portfolioUrl);
+  if (portfolio && portfolioUrl) { portfolio.href = portfolioUrl; portfolio.hidden = false; }
   $('story-copy').textContent=config.story;
   document.querySelectorAll('[data-couple]').forEach(node => {
     node.setAttribute('aria-label', config.couple.displayName);
