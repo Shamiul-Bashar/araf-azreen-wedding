@@ -2,6 +2,7 @@
 .wedding-intro { display:none; }
 html.intro-active,html.intro-active body { overflow:hidden; overscroll-behavior:none; }
 html.intro-active .wedding-page { pointer-events:none; }
+html.intro-active #scene .content, html.intro-active #scene .replay-button { visibility: hidden; }
 html.intro-active .wedding-intro { position:fixed; inset:0; z-index:10000; display:grid; place-items:center; min-height:100svh; padding:32px 20px; overflow:hidden; background:#0f0f10; color:#f7f1ea; opacity:1; transition:opacity .55s ease; }
 html.intro-leaving .wedding-intro { opacity:0; }
 .intro-content { position:relative; width:min(100%,720px); text-align:center; }
