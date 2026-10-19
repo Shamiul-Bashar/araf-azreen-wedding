@@ -19,7 +19,7 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
  assert.equal(await page.locator('#typewriter').textContent(),'Wedding Invitation');
  console.log('PASS: real character-by-character hero replay:',JSON.stringify(partial));
  const motionSamples=[];
- for(const id of ['story','date','events','memories','venue','rsvp','wishes','closing']){
+ for(const id of ['story','date','events','memories','venue','wishes','closing']){
    await page.evaluate(id=>document.getElementById(id).scrollIntoView({behavior:'instant'}),id);
    await wait(200);
    motionSamples.push({id,...await page.locator('#'+id).evaluate(n=>({active:n.getAnimations({subtree:true}).length,typing:!!n.querySelector('.type-copy')}))});
@@ -31,34 +31,6 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
  }
  assert(motionSamples.every(s=>s.id==='venue'||s.active>0||s.typing),JSON.stringify(motionSamples));
  console.log('PASS: real animation activity on section entry:',JSON.stringify(motionSamples));
- // Stub only the Google Forms endpoint; never send QA responses to the real wedding form.
- await page.evaluate(() => {
-   window.__rsvpPosts = [];
-   const originalFetch = window.fetch.bind(window);
-   window.fetch = (url, options) => {
-     if (String(url).includes('/formResponse')) {
-       window.__rsvpPosts.push({url:String(url), body:options.body, mode:options.mode});
-       return Promise.resolve({type:'opaque'});
-     }
-     return originalFetch(url, options);
-   };
- });
- await page.locator('#guest-name').fill('QA Guest');
- await page.locator('#attendance').selectOption('yes');
- assert.equal(await page.locator('#guest-count-field').count(),0);
- await page.locator('#rsvp-form button').click();
- await page.waitForFunction(() => document.querySelector('#rsvp-status').textContent.includes('has been sent'));
- const yes = await page.evaluate(() => window.__rsvpPosts[0]);
- assert.equal(yes.mode,'no-cors');
- assert.equal(new URLSearchParams(yes.body).get('entry.1556371433'),'QA Guest');
- assert.equal(new URLSearchParams(yes.body).get('entry.1872556883'),"Yes, I'll be there");
- assert.equal(await page.evaluate(() => localStorage.getItem('aa-wedding:rsvps')),null);
- await page.locator('#guest-name').fill('QA Declined');
- await page.locator('#attendance').selectOption('no');
- await page.locator('#rsvp-form button').click();
- await page.waitForFunction(() => window.__rsvpPosts.length===2);
- const no = await page.evaluate(() => window.__rsvpPosts[1]);
- assert.equal(new URLSearchParams(no.body).get('entry.1872556883'),"Sorry, I won't be able to attend");
  // Mock Formspree network requests; QA must not send real emails.
  await page.evaluate(() => {
    window.__wishPosts = [];
@@ -80,18 +52,20 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
  await page.evaluate(()=>window.WeddingIntro?.finish());
  assert.equal(await page.locator('#wish-status').textContent(),'');
  assert.equal(await page.locator('#music-toggle').count(),0);
- console.log('PASS: mocked Google Forms RSVP posts, mocked Formspree Wishes acceptance, no local-only storage, removed music footer.');
+ assert.equal(await page.locator('#rsvp').count(),0);
+assert.equal(await page.locator('#rsvp-form').count(),0);
+console.log('PASS: removed RSVP, mocked Formspree Wishes acceptance, no local-only storage, removed music footer.');
  const sizes=[];
  for(const width of [320,360,390,430,768,1366]){
    await page.setViewportSize({width,height:900});
-   for(const id of ['story','date','events','memories','venue','rsvp','wishes','closing']){
+   for(const id of ['story','date','events','memories','venue','wishes','closing']){
     await page.evaluate(id=>document.getElementById(id).scrollIntoView({behavior:'instant'}),id);await wait(60);
    }
    const dimensions=await page.evaluate(()=>({client:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth,hero:document.getElementById('scene').getBoundingClientRect().width}));
    assert(dimensions.scroll<=dimensions.client+1,`${width}px overflow ${JSON.stringify(dimensions)}`);
    assert(Math.abs(dimensions.hero-dimensions.client)<=1);sizes.push({width,...dimensions});
    if(width===320 || width===1366){
-    for(const id of ['events','memories','venue','rsvp','closing']){await page.evaluate(id=>document.getElementById(id).scrollIntoView({behavior:'instant'}),id);await wait(1400);await page.screenshot({path:`qa/${width}-${id}.png`});}
+    for(const id of ['events','memories','venue','closing']){await page.evaluate(id=>document.getElementById(id).scrollIntoView({behavior:'instant'}),id);await wait(1400);await page.screenshot({path:`qa/${width}-${id}.png`});}
    }
  }
  assert.equal(await page.locator('#venue .motion-pending').count(),0);

@@ -18,15 +18,16 @@
     return new Date(guess);
   }
   const formattedDate = date => new Intl.DateTimeFormat('en-GB', { day:'numeric',month:'long',year:'numeric',timeZone:'UTC' }).format(new Date(`${date}T12:00:00Z`));
+  // Save the Date celebrates the reception; the wedding ceremony remains 16 December.
+  const saveTheDate = config.events.find(event => event.id === 'reception') || config.wedding;
   function dateState(now = new Date()) {
-    const start = zonedDate(config.wedding.date, config.wedding.time || '00:00');
+    const start = zonedDate(saveTheDate.date, saveTheDate.time || '00:00');
     if (!start) return { past:false, today:false, remaining:0, valid:false };
     const local = new Intl.DateTimeFormat('en-CA',{timeZone:config.wedding.timezone,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now);
     const p = Object.fromEntries(local.map(v => [v.type,v.value]));
     const day = `${p.year}-${p.month}-${p.day}`;
-    return { valid:true, past:day > config.wedding.date, today:day === config.wedding.date, remaining:Math.max(0,start-now) };
+    return { valid:true, past:day > saveTheDate.date, today:day === saveTheDate.date, remaining:Math.max(0,start-now) };
   }
-  const rsvpOpen = (now = new Date()) => config.rsvp.isOpen === null ? (!config.rsvp.closeAfterWedding || !dateState(now).past) : config.rsvp.isOpen === true;
   function safeUrl(raw) { try { const url=new URL(raw); return ['https:','http:'].includes(url.protocol) ? url.href : null; } catch { return null; } }
   function directions(parent, raw) { const url=safeUrl(raw); if(!url) return; const a=element('a','Get directions ↗','text-link'); a.href=url;a.target='_blank';a.rel='noopener noreferrer';parent.append(a); }
   function calendar(parent, event, name) {
@@ -41,7 +42,7 @@
       const url=URL.createObjectURL(new Blob([data],{type:'text/calendar;charset=utf-8'}));const a=element('a');a.href=url;a.download=`${event.id || 'wedding'}.ics`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
     });parent.append(button);
   }
-  window.Wedding = {config,$,element,available,zonedDate,dateState,rsvpOpen,safeUrl};
+  window.Wedding = {config,$,element,available,zonedDate,dateState,safeUrl};
   const portfolio = $('portfolio-link');
   const portfolioUrl = safeUrl(config.developer?.portfolioUrl);
   if (portfolio && portfolioUrl) { portfolio.href = portfolioUrl; portfolio.hidden = false; }
@@ -71,7 +72,7 @@
     media.append(img);
     scene.prepend(media);
   });
-  const date=new Date(`${config.wedding.date}T12:00:00Z`);
+  const date=new Date(`${saveTheDate.date}T12:00:00Z`);
   if(!Number.isNaN(date.getTime())){ $('date-day').textContent=date.getUTCDate();$('date-month').textContent=date.toLocaleDateString('en-GB',{month:'long',timeZone:'UTC'});$('date-year').textContent=date.getUTCFullYear(); }
   const counters=['Days','Hours','Minutes','Seconds'].map(label=>{const wrap=element('div');wrap.setAttribute('data-reveal','rise');wrap.setAttribute('data-delay',String(120+['Days','Hours','Minutes','Seconds'].indexOf(label)*150));const value=element('strong','00');wrap.append(value,element('span',label));$('countdown').append(wrap);return value;});
   function updateDate() {
@@ -80,23 +81,22 @@
     $('countdown').hidden = !state.valid || state.past || arrived;
     $('date-heading').textContent = state.past ? 'A Day to Remember' : 'Save the Date';
     const message = !state.valid ? 'Date to be announced' : state.past
-      ? `Celebrated on ${formattedDate(config.wedding.date)}` : arrived
-      ? 'Today, our new chapter begins.' : 'Counting down to our special day';
+      ? `Celebrated on ${formattedDate(saveTheDate.date)}` : arrived
+      ? 'Today, we celebrate together.' : 'Counting down to our special day';
     if ($('date-state').textContent !== message) $('date-state').textContent = message;
     const timezoneLabel = config.wedding.timezone === 'Asia/Dhaka' ? 'Bangladesh Time' : config.wedding.timezone;
-    $('date-note').textContent = state.valid ? `${formattedDate(config.wedding.date)} \u00b7 ${timezoneLabel}` : '';
+    $('date-note').textContent = state.valid ? `${formattedDate(saveTheDate.date)} \u00b7 ${timezoneLabel}` : '';
     $('date-target').hidden = !state.valid || state.past || arrived;
-    $('date-target').textContent = config.wedding.time
-      ? `Counting to the configured wedding time: ${config.wedding.time}.`
-      : 'Counting to the start of the wedding date.';
+    $('date-target').textContent = saveTheDate.time
+      ? `Counting to the configured reception time: ${saveTheDate.time}.`
+      : 'Counting to the start of the reception date.';
     let seconds = Math.floor(state.remaining / 1000);
     [86400, 3600, 60, 1].forEach((unit, index) => {
       counters[index].textContent = String(Math.floor(seconds / unit)).padStart(2, '0');
       seconds %= unit;
     });
-    document.dispatchEvent(new CustomEvent('wedding:clock'));
   }
-  updateDate();setInterval(updateDate,1000);calendar($('wedding-calendar'),config.wedding,`${config.couple.displayName} · Wedding`);
+  updateDate();setInterval(updateDate,1000);calendar($('wedding-calendar'),saveTheDate,`${config.couple.displayName} · Reception`);
   config.events.forEach((event, index) => {
     const article = element('article', undefined, 'event-entry');
     const stagger = Math.min(index * 120, 240);

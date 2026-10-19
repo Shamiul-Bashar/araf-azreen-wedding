@@ -1,6 +1,7 @@
 (() => {
   'use strict';
-  const { config, $, rsvpOpen } = window.Wedding;
+  // The RSVP section has been retired. Wedding Wishes remains fully functional.
+  const { $ } = window.Wedding;
   function status(id, message, state = 'success') {
     const node = $(id);
     node.textContent = message;
@@ -10,28 +11,6 @@
     node.classList.add('is-saved');
   }
 
-  const form = $('rsvp-form');
-  const submitLabel = form.querySelector('button[type="submit"] span');
-  const googleForms = config.rsvp.googleForms;
-  const configured = Boolean(
-    googleForms?.formResponseUrl &&
-    googleForms?.fields?.name &&
-    googleForms?.fields?.attendance &&
-    googleForms?.fields?.message &&
-    googleForms?.answers?.yes &&
-    googleForms?.answers?.no
-  );
-  let submitting = false;
-
-  function updateRSVP() {
-    const available = configured && rsvpOpen();
-    $('rsvp-fields').disabled = !available || submitting;
-    $('rsvp-closed').hidden = available;
-    if (!configured) {
-      $('rsvp-closed').textContent = 'RSVP will be available when our response service is connected.';
-    }
-    submitLabel.textContent = submitting ? 'Sending RSVP...' : 'Submit RSVP';
-  }
 
   function nonblank(formElement) {
     let valid = true;
@@ -43,65 +22,9 @@
     return valid && formElement.checkValidity();
   }
 
-  updateRSVP();
-  document.addEventListener('wedding:clock', updateRSVP);
-  document.querySelectorAll('.invitation-form input,.invitation-form textarea').forEach(input => {
+
+  document.querySelectorAll('#wish-form input,#wish-form textarea').forEach(input => {
     input.addEventListener('input', () => input.setCustomValidity(''));
-  });
-
-  form.addEventListener('submit', async event => {
-    event.preventDefault();
-    if (!configured || !rsvpOpen() || submitting || !nonblank(form)) return;
-
-    const fields = new FormData(form);
-    const attendance = googleForms.answers[fields.get('attendance')];
-    if (!attendance) {
-      status('rsvp-status', 'Please select whether you will be joining us.', 'error');
-      return;
-    }
-
-    const payload = new URLSearchParams();
-    payload.set(googleForms.fields.name, String(fields.get('name')).trim());
-    payload.set(googleForms.fields.attendance, attendance);
-    payload.set(googleForms.fields.message, String(fields.get('message') || '').trim());
-
-    submitting = true;
-    updateRSVP();
-    status('rsvp-status', 'Sending your RSVP...', 'sending');
-
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 12000);
-    try {
-      // Google Forms does not provide CORS-readable submission receipts.
-      // An opaque response means the browser sent the request, NOT that the form accepted it.
-      await fetch(googleForms.formResponseUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        credentials: 'omit',
-        redirect: 'follow',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-        body: payload.toString(),
-        signal: controller.signal
-      });
-      // Sending this request does not confirm that Google Forms recorded it.
-      status('rsvp-status', 'Thank you — your RSVP has been sent.', 'sent');
-      form.reset();
-    } catch {
-      status('rsvp-status', 'Could not send your RSVP. Please try again.', 'error');
-      // Show the external form link only when it is useful: a failed send.
-      if (googleForms.viewFormUrl) {
-        const fallback = document.createElement('a');
-        fallback.href = googleForms.viewFormUrl;
-        fallback.target = '_blank';
-        fallback.rel = 'noopener noreferrer';
-        fallback.textContent = 'Open the RSVP form ↗';
-        $('rsvp-status').append(' ', fallback);
-      }
-    } finally {
-      clearTimeout(timeout);
-      submitting = false;
-      updateRSVP();
-    }
   });
 
   // Real Wishes delivery via Formspree. Keep HTML action/method as a no-JS fallback.

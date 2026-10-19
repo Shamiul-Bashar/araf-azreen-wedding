@@ -35,7 +35,7 @@ const server=http.createServer((req,res)=>{
     await page.goto(base,{waitUntil:'domcontentloaded'});
     return {ctx,page};
   };
-  for(const width of [390,1366]){
+  for(const width of [320,390,768,1366]){
     const {ctx,page}=await open({viewport:{width,height:900}});
     assert.equal(await page.evaluate(()=>window.WeddingIntro.active),true);
     assert.equal(await page.locator('#scene').evaluate(n=>n.classList.contains('playing')),false);
@@ -46,6 +46,21 @@ const server=http.createServer((req,res)=>{
     await page.waitForFunction(()=>!window.WeddingIntro.active,{},{timeout:6000});
     assert.equal(await page.locator('#scene').evaluate(n=>n.classList.contains('playing')),true);
     assert.equal(await page.locator('#scene .content').evaluate(n=>getComputedStyle(n).visibility),'visible');
+    assert.equal(await page.locator('#date-day').textContent(),'18');
+    assert.equal(await page.locator('#date-month').textContent(),'December');
+    assert.equal(await page.locator('#date-year').textContent(),'2026');
+    assert.equal(await page.locator('#date-note').textContent(),'18 December 2026 · Bangladesh Time');
+    assert.equal(await page.locator('#date-target').textContent(),'Counting to the start of the reception date.');
+    assert.equal(await page.evaluate(()=>Wedding.dateState(new Date('2026-12-17T17:59:59Z')).remaining),1000);
+    assert.equal(await page.evaluate(()=>Wedding.dateState(new Date('2026-12-17T18:00:00Z')).today),true);
+    assert.equal(await page.locator('.event-time').nth(1).textContent(),'Evening');
+    assert.equal(await page.locator('#rsvp').count(),0);
+    assert.equal(await page.locator('#rsvp-form').count(),0);
+    assert.equal(await page.locator('a[href="#rsvp"]').count(),0);
+    assert.equal(await page.locator('a[href="#wishes"]').count(),1);
+    assert.equal(await page.locator('#wish-form').count(),1);
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth+1),true);
+
     assert.notEqual(await page.locator('#typewriter').textContent(),'Wedding Invitation');
     await page.waitForFunction(()=>document.querySelector('#typewriter').textContent==='Wedding Invitation',{},{timeout:6500});
     await ctx.close();
@@ -64,5 +79,5 @@ const server=http.createServer((req,res)=>{
   assert.equal(await disabled.page.locator('#scene .content').evaluate(n=>getComputedStyle(n).visibility),'visible');
   await disabled.ctx.close();
   assert.deepEqual(errors,[]);
-  console.log('PASS: no pre-intro title flash, intro fade remains hidden, one hero reveal, skip, reduced motion and no-JS fallback');
+  console.log('PASS: hero handoff, 18 December reception countdown, Evening Holud, retired RSVP, preserved Wishes, 4 viewports, skip and reduced-motion/no-JS fallbacks');
 })().catch(err=>{console.error(err);process.exitCode=1}).finally(async()=>{try{await browser?.close()}finally{server.close()}});

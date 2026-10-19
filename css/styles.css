@@ -132,7 +132,7 @@
 .chapters .venue-copy h2 { font-size: clamp(43px, 5.8vw, 84px); }
 
 /* RSVP and wishes: a response letter with generous, accessible controls. */
-.chapters .rsvp-scene, .chapters .wishes-scene { display: grid; grid-template-columns: 1fr 1fr; gap: 50px 12%; }
+.chapters .wishes-scene { display: grid; grid-template-columns: 1fr 1fr; gap: 50px 12%; }
 .chapters .response-heading .script-note { margin: 0 0 24px; }
 .chapters .response-heading .demo-note { margin-top: 38px; max-width: 34ch; }
 .chapters .response-form { align-self: center; }
@@ -501,52 +501,6 @@
 
 
 
-/* RSVP: open editorial form over the original warm wedding photograph. */
-.chapters #rsvp { position:relative; isolation:isolate; overflow:hidden; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:48px 12%; align-items:start; min-height:850px; padding-block:80px; background:#f7f1ea; color:#211915; }
-.chapters #rsvp .rsvp-backdrop { position:absolute; inset:0; z-index:-1; pointer-events:none; background:linear-gradient(90deg,rgba(247,241,234,.78),rgba(247,241,234,.20) 42%,rgba(247,241,234,.82) 67%,rgba(247,241,234,.88)),linear-gradient(180deg,rgba(247,241,234,.60),transparent 62%),url('../assets/rsvp-bg.png') center / cover no-repeat; }
-.chapters #rsvp .response-heading { max-width:440px; }
-.chapters #rsvp .eyebrow { font:600 11px/1.8 'DM Sans',sans-serif; letter-spacing:.14em; color:#67503a; margin-bottom:18px; }
-.chapters #rsvp .script-note { font:400 30px/1.4 'Great Vibes',cursive; color:#913e3b; margin:0 0 18px; }
-.chapters #rsvp h2 { font:500 clamp(70px,6.2vw,86px)/1.04 'Cormorant Garamond',serif; color:#211915; }
-.chapters #rsvp .fine-rule { margin:24px 0; width:62px; }
-.chapters #rsvp .rsvp-subtitle { font:500 26px/1.3 'Cormorant Garamond',serif; color:#332821; max-width:28ch; }
-.chapters #rsvp .rsvp-invitation { font:400 14px/1.75 'DM Sans',sans-serif; color:#4a3d34; max-width:40ch; margin-top:18px; }
-.chapters #rsvp .response-form { align-self:start; padding-top:8px; }
-.chapters #rsvp .form-field { margin-bottom:27px; }
-.chapters #rsvp label { font:600 14px/1.6 'DM Sans',sans-serif; color:#29211d; margin-bottom:9px; }
-.chapters #rsvp :is(input,select,textarea) { font:400 16px/1.6 'DM Sans',sans-serif; padding:13px 10px; min-height:52px; color:#211915; border-bottom:1px solid #75675c; background:rgba(247,241,234,.18); transition:border-color .2s,background .2s,box-shadow .2s; }
-.chapters #rsvp :is(input,textarea)::placeholder { font-size:16px; color:#6c5d52; opacity:1; }
-.chapters #rsvp textarea { min-height:110px; }
-.chapters #rsvp select { appearance:none; padding-right:36px; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10' viewBox='0 0 16 10'%3E%3Cpath d='m2 2 6 6 6-6' fill='none' stroke='%234a3d34' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; }
-.chapters #rsvp option { background:#f7f1ea; color:#211915; }
-.chapters #rsvp :is(input,select,textarea):focus { outline:2px solid #913e3b; outline-offset:3px; border-color:#913e3b; box-shadow:none; background-color:#f7f1ea80; }
-.chapters #rsvp .action-button { margin-top:26px; padding:16px 20px; min-height:56px; font:600 14px/1.5 'DM Sans',sans-serif; color:#fff; background:#913e3b; border-color:#913e3b; transition:background .2s; }
-.chapters #rsvp .action-button:hover { background:#73302e; border-color:#73302e; }
-.chapters #rsvp .action-button:active { transform:none; }
-.chapters #rsvp .button-arrow { transition:transform .2s; }
-.chapters #rsvp .action-button:hover .button-arrow { transform:translateX(4px); }
-.chapters #rsvp .form-status { font:500 13px/1.7 'DM Sans',sans-serif; color:#665447; margin:0; }
-.chapters #rsvp .form-status:not(:empty) { margin-top:13px; padding:0; border:0; background:transparent; }
-.chapters #rsvp .form-status[data-state="sent"] { color:#4f5b43; }
-.chapters #rsvp .form-status[data-state="error"] { color:#913e3b; }
-.chapters #rsvp .form-status a { display:inline-block; margin-left:5px; color:#713b34; font-weight:600; text-decoration:underline; text-underline-offset:3px; }
-.chapters #rsvp .form-status a:focus-visible { outline:2px solid #913e3b; outline-offset:3px; }
-@media(prefers-reduced-motion:reduce) {
- .chapters #rsvp .is-saved { animation:none; }
- .chapters #rsvp .button-arrow { transition:none; }
- .chapters #rsvp .action-button:hover .button-arrow { transform:none; }
-}
-@media(max-width:767px) {
- .chapters #rsvp { grid-template-columns:minmax(0,1fr); gap:32px; padding-block:300px 60px; min-height:0; }
- .chapters #rsvp .rsvp-backdrop { inset:0 0 auto; height:330px; background:linear-gradient(180deg,transparent 30%,rgba(247,241,234,.12) 55%,#f7f1ea 100%),url('../assets/rsvp-bg.png') 32% 75% / cover no-repeat; }
- .chapters #rsvp h2 { font-size:clamp(48px,13vw,58px); }
- .chapters #rsvp .script-note { font-size:26px; }
- .chapters #rsvp .rsvp-subtitle { font-size:23px; }
- .chapters #rsvp .rsvp-invitation { font-size:14px; }
- .chapters #rsvp .response-form { padding-top:0; }
-}
-
-
 /* Closing: one full-color photograph and a quiet right-hand editorial column. */
 .chapters #closing { min-height:800px; display:grid; grid-template-columns:1fr 1fr; gap:6%; align-items:center; padding-block:80px; background:#101713; color:#f7f1ea; }
 .chapters #closing .scene-media { inset:0; transform:none; }
@@ -654,11 +608,6 @@
   min-height: 58px;
   font: 600 14px/1.5 'DM Sans',sans-serif;
 }
-.chapters #rsvp .rsvp-invitation { font-size: 15px; line-height: 1.8; }
-.chapters #rsvp .action-button:disabled {
-  opacity: .78;
-  cursor: wait;
-}
 .chapters :is(input,select,textarea):disabled { cursor: not-allowed; }
 @media(max-width:767px) {
   .chapters #wishes::after {
@@ -668,7 +617,6 @@
   .chapters #wishes .invitation-form label { font-size: 14px; }
   .chapters #wishes .form-field { margin-bottom: 26px; }
   .chapters #wishes .action-button { margin-top: 24px; }
-  .chapters #rsvp .rsvp-invitation { font-size: 14px; }
 }
 @media(prefers-reduced-motion:reduce) {
   html { scroll-behavior: auto; }
