@@ -29,7 +29,7 @@ window.weddingConfig = {
         message: 'entry.219074917'
       },
       answers: {
-        yes: 'Yes,I"l be there',
+        yes: "Yes, I'll be there",
         no: "Sorry,I won't be able to attend"
       }
     }
