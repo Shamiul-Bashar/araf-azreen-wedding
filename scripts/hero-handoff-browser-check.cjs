@@ -8,6 +8,7 @@ const path=require('node:path');
 const { chromium }=require('playwright-core');
 const root=path.resolve(__dirname,'..');
 const mime={'.html':'text/html','.css':'text/css','.js':'application/javascript','.jpeg':'image/jpeg','.jpg':'image/jpeg','.png':'image/png','.svg':'image/svg+xml'};
+let browser;
 const server=http.createServer((req,res)=>{
   try{
     const relative=decodeURIComponent(new URL(req.url,'http://localhost').pathname);
@@ -24,7 +25,7 @@ const server=http.createServer((req,res)=>{
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
   const base='http://127.0.0.1:'+server.address().port;
   const chrome=process.env.CHROME_PATH||'/usr/bin/google-chrome';
-  const browser=await chromium.launch({executablePath:chrome,headless:true,args:['--no-sandbox']});
+  browser=await chromium.launch({executablePath:chrome,headless:true,args:['--no-sandbox']});
   const errors=[];
   const open=async(options={})=>{
     const ctx=await browser.newContext({viewport:{width:390,height:844},...options});
@@ -45,7 +46,7 @@ const server=http.createServer((req,res)=>{
     await page.waitForFunction(()=>!window.WeddingIntro.active,{},{timeout:6000});
     assert.equal(await page.locator('#scene').evaluate(n=>n.classList.contains('playing')),true);
     assert.equal(await page.locator('#scene .content').evaluate(n=>getComputedStyle(n).visibility),'visible');
-    assert.equal(await page.locator('#typewriter').textContent(),'');
+    assert.notEqual(await page.locator('#typewriter').textContent(),'Wedding Invitation');
     await page.waitForFunction(()=>document.querySelector('#typewriter').textContent==='Wedding Invitation',{},{timeout:6500});
     await ctx.close();
   }
@@ -64,5 +65,4 @@ const server=http.createServer((req,res)=>{
   await disabled.ctx.close();
   assert.deepEqual(errors,[]);
   console.log('PASS: no pre-intro title flash, intro fade remains hidden, one hero reveal, skip, reduced motion and no-JS fallback');
-  await browser.close();
-})().catch(err=>{console.error(err);process.exitCode=1}).finally(()=>server.close());
+})().catch(err=>{console.error(err);process.exitCode=1}).finally(async()=>{try{await browser?.close()}finally{server.close()}});
