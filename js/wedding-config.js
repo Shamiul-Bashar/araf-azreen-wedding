@@ -15,8 +15,8 @@ window.weddingConfig = {
   developer: { portfolioUrl: 'https://shamiul-dev.vercel.app/' },
   music: { src: 'assets/music.mp3', autoplay: false, volume: 0.35 },
   // Google Form is public; no private credentials belong in this client-side configuration.
-  // The yes answer comes verbatim from the owner-provided pre-filled link.
-  // Test both choices against the actual published form before launching.
+  // The owner corrected the Yes option spelling to: Yes, I'll be there.
+  // Confirm the published Form exactly matches both configured choices before launching.
   rsvp: {
     closeAfterWedding: true,
     isOpen: null,
