@@ -57,7 +57,7 @@ The RSVP form now sends three public fields (**name**, **attendance**, and **opt
 
 Before using this for real guests:
 1. Publish the Google Form with anonymous responder access, and keep its three original question IDs.
-2. Check **both exact attendance choice values** in `js/wedding-config.js`. The owner corrected the "yes" choice to `Yes, I'll be there`; the "no" choice still requires confirmation against the published form.
+2. Check **both exact attendance choice values** in `js/wedding-config.js`. The owner corrected the "yes" choice to `Yes, I'll be there`; the "no" choice is also corrected to `Sorry, I won\'t be able to attend` as confirmed by the form owner. Both choices still require a real end-to-end test.
 3. Manually send an actual RSVP from the website using a unique test name and optional note, then open Google Forms → Responses in the owning account. Verify that all three answers are present under the correct questions. Repeat for the other attendance choice and remove the two test responses.
 4. Test from a private/incognito browser and mobile browser without signing in to Google. If responses do not arrive, do not treat the request as successfully delivered.
 5. Run the regression scripts; these stub network requests and intentionally do **not** send data to the real Google Form.
