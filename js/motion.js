@@ -59,7 +59,7 @@
     if (node.hasAttribute('data-type')) { type(node); return; }
     const kind = node.dataset.reveal || 'rise';
     const delay = Math.min(Number(node.dataset.delay) || 0, node.closest('#venue') ? 280 : 600);
-    const distance = node.closest('#venue, #memories, #rsvp, #closing') ? 16 : innerWidth < 768 ? 26 : 42;
+    const distance = node.closest('#venue, #memories, #closing') ? 16 : innerWidth < 768 ? 26 : 42;
     let from = { opacity: 0, transform: `translateY(${distance}px)` };
     let to = { opacity: 1, transform: 'translateY(0)' };
     if (kind === 'mask') {
@@ -77,7 +77,7 @@
     } else if (kind === 'arch') {
       node.classList.add('is-drawn');
     }
-    animate(node, [from, to], { delay, duration: node.closest('#rsvp, #closing') ? 450 : node.closest('#memories') ? (node.matches('h2') ? 450 : node.matches('.gallery-caption') ? 350 : 500) : node.closest('#venue') ? (kind === 'arch' ? 500 : 350) : kind === 'image' ? 1200 : 1000 });
+    animate(node, [from, to], { delay, duration: node.closest('#closing') ? 450 : node.closest('#memories') ? (node.matches('h2') ? 450 : node.matches('.gallery-caption') ? 350 : 500) : node.closest('#venue') ? (kind === 'arch' ? 500 : 350) : kind === 'image' ? 1200 : 1000 });
   }
 
   function register(scope = root) {
