@@ -49,7 +49,7 @@ This refreshes `availableAssets` inside the configuration, preventing requests t
 
 The old music footer has been replaced by developer attribution and a real portfolio link. The retained music module exits without creating audio when its controls are absent.
 
-## RSVP — Google Forms integration (pending real submission verification)
+## RSVP — Google Forms integration
 
 The RSVP form now sends three public fields (**name**, **attendance**, and **optional note**) to the configured Google Form via an ordinary cross-origin POST request. Guest count has been removed from the website and is not submitted. The original invitation layout is preserved. A fallback link opens the Google Form directly.
 
@@ -64,7 +64,7 @@ Before using this for real guests:
 
 **Wedding Wishes** now submits guest **name** and **message** directly to the supplied public Formspree endpoint: `https://formspree.io/f/mgaoqqbp`. The editable form action lives in `index.html` and provides a native HTML submit fallback without JavaScript; `js/rsvp.js` enhances it with an asynchronous `fetch` that requires an actual `response.ok` before confirming submission. Failed requests preserve the guest's message. There is no browser-local wish storage, public wishes gallery, or permanent technical disclaimer in this section.
 
-To receive email notifications, verify the form-owner email address and enable/configure email notifications in the Formspree dashboard for the correct Gmail. Submit **one uniquely named real test wish from the website**, check Formspree's Submissions dashboard, Gmail Inbox **and Spam**, then remove the test submission if possible. A successful Formspree response means the provider accepted the submission; it does not guarantee immediate Gmail delivery. Depending on the Formspree plan, monthly submission limits and anti-spam protections may apply. No API key or password belongs in frontend JavaScript. Review protection against automated spam before distributing the invitation.
+To receive email notifications, verify the form-owner email address and enable/configure email notifications in the Formspree dashboard for the correct Gmail. The owner has verified that a real Wedding Wishes submission from the site resulted in a Gmail message. After any future endpoint/account change, submit **one uniquely named real test wish**, check Formspree Submissions, Gmail Inbox **and Spam**, then remove the test submission if possible. A successful Formspree response means the provider accepted the submission; it does not guarantee immediate Gmail delivery. Depending on the Formspree plan, monthly submission limits and anti-spam protections may apply. No API key or password belongs in frontend JavaScript. Review protection against automated spam before distributing the invitation.
 
 ## Files and checks
 
@@ -119,4 +119,21 @@ These use isolated browser contexts and mocked external form submissions, never 
 
 ## Current completion audit
 
-Confirmed event details and the individually polished sections are retained. Gallery photos 1 and 2 are now registered; missing photos 3 and 4 are skipped. The Venue uses overlapping reveals finishing in 630ms, with no continuous photo zoom. Reception details are read from the event configuration. The closing photo is supplied as `assets/closing-bg.png`. The developer footer links to https://shamiul-dev.vercel.app/. RSVP sends requests to Google Forms; the owner has confirmed a real Yes response arrived, but the No case still needs checking. Wishes now submits to Formspree and requires a real Formspree dashboard + Gmail notification test.
+Confirmed event details and the individually polished sections are retained. Gallery photos 1 and 2 are now registered; missing photos 3 and 4 are skipped. The Venue uses overlapping reveals finishing in 630ms, with no continuous photo zoom. Reception details are read from the event configuration. The closing photo is supplied as `assets/closing-bg.png`. The developer footer links to https://shamiul-dev.vercel.app/. RSVP sends requests to Google Forms; the owner confirmed a real Yes response arrived, while the No case still needs checking. Wishes submits to Formspree and the owner confirmed a real Gmail notification arrived.
+
+## Premium polish (19 October 2026)
+- Semantic top-level invitation heading, accessible skip navigation and stronger keyboard focus.
+- Better form typography, contrast, mobile tap targets and live announcement semantics, preserving the original photography and animation concept.
+- Reduced-motion improvements and prioritized loading of the hero photograph.
+- Canonical URL, Open Graph and Twitter share-preview tags with a verified hosted image path, plus a small monogram favicon.
+- A repeatable offline verification script: `node scripts/polish-check.cjs`.
+- A GitHub Actions quality gate (`.github/workflows/quality.yml`) checks syntax and simulated integration behavior on PRs and pushes.
+- **No change** to the existing RSVP entry IDs, public Google Form URL or Formspree action URL.
+
+## Recovery snapshot
+The last pre-polish, verified production version was saved before any improvements on the immutable-at-creation snapshot branch
+`backup/production-2026-10-19-pre-polish`, commit
+`4536883080ceb4832f4f06002ac06ff4339f7739`.
+Browse or download it through:
+`https://github.com/Shamiul-Bashar/araf-azreen-wedding/tree/backup/production-2026-10-19-pre-polish`.
+This branch is intentionally not updated by automatic deployment. For an immediate hosting rollback, find the prior READY deployment `dpl_EUZrPPKygnHbBcTPV3UxKWga7vJC` in Vercel's Deployments UI and use its rollback/promote control. For a permanent code rollback, create a tested revert of the polish merge commit or restore files from the backup branch on a new branch, then merge through a pull request. Never force-push main.
